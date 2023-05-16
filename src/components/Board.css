@@ -1,0 +1,30 @@
+
+.board {
+    display: inline-block;
+    width: 50%;
+    height: 400px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: black;
+    background-color: #f8725b;
+    margin-right: 10px;
+    margin-left: 20px;
+    padding: 0.5rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.new-list-button {
+    width: 20%;
+    height: 40px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: black;
+    background-color: #f8725b;
+    padding: 0.5rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+
+}
+
+  
