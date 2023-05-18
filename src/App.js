@@ -56,19 +56,19 @@ function App() {
 
   return (
     <div>
-      <h2 className="bg-primary text-white p-3 ml-5 mr-5 mt-3 mb-3">Project Name</h2>
-      <div className="container">  
-        <div className="row">
-          {boardConfig.listConfig.map((column) => (
-            <BoardColumn 
-              key={column.id} 
-              name={column.name} 
-              style={column.style}
-              tasks={tasksInColumns[column.id]}  
-            />
-          ))}
-        </div>
-      </div>  
+      <div className="container-fluid bg-primary text-white p-3">
+        <h2 >Project Name</h2>
+      </div>
+      <div className="d-flex flex-row" style={{width: "1000px"}}>
+        {boardConfig.listConfig.map((column) => (
+          <BoardColumn 
+            key={column.id} 
+            name={column.name} 
+            style={column.style}
+            tasks={tasksInColumns[column.id]}  
+          />
+        ))}
+      </div> 
     </div>
   );
 }

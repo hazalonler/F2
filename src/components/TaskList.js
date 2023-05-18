@@ -3,9 +3,7 @@ function TaskList (props) {
 
     return (
         <li>
-            <div className="col-sm mb-2 mr-4" style={{backgroundColor: "lavender"}}>
-                <p>{props.name}</p>
-            </div>
+            <p className="mb-2 mr-2 ml-2" style={{backgroundColor: "lavender"}}>{props.name}</p>
         </li>
     );
 

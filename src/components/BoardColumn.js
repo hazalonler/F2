@@ -4,7 +4,7 @@ import TaskList from "./TaskList";
 const BoardColumn =  (props) => {
 
     return (
-        <div className="col-sm mr-3"  style={props.style}>
+        <div className="col-lg mt-3 ml-3" style={props.style} >
             <h4>{props.name}</h4>
             <ul className="list-unstyled">
                 {props.tasks.map((task) => (
