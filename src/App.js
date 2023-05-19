@@ -1,4 +1,4 @@
-import BoardColumn from "./components/BoardColumn";
+import BoardList from "./components/BoardList";
 import BoardClient from "./clients/BoardClient";
 
 function App() {
@@ -61,7 +61,7 @@ function App() {
       </div>
       <div className="d-flex flex-row" style={{width: "1000px"}}>
         {boardConfig.listConfig.map((column) => (
-          <BoardColumn 
+          <BoardList
             key={column.id} 
             name={column.name} 
             style={column.style}
