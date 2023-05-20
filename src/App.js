@@ -6,53 +6,19 @@ function App() {
   const boardClient = new BoardClient();
 
   const boardConfig = boardClient.getBoardConfig();
+  const tasks = boardClient.getTasks();
 
-  const backlogList = [
-    {
-        name: "Prepare a new board",
-        date: new Date(2023, 4, 3),
-        listId: 'e1',
-    },
-    {
-        name: "Prepare a task list",
-        date: new Date(2023, 5, 6),
-        listId: 'e2',
-    },
-    {
-        name: "Prepare a task list",
-        date: new Date(2023, 5, 6),
-        listId: 'e3',
-    },
-    {
-        name: "Prepare a new board",
-        date: new Date(2023, 4, 3),
-        listId: 'e1',
-    },
-    {
-        name: "Prepare a task list",
-        date: new Date(2023, 5, 6),
-        listId: 'e2',
-    },
-    {
-        name: "Prepare a task list",
-        date: new Date(2023, 5, 6),
-        listId: 'e3',
-    },
-  ];
+  const tasksByList = new Map(
+    boardConfig.listConfig.map(list => {
+      return [list.id, []]
+    })
+  );
 
-
-  const tasksInColumns = {
-    "e1" : [
-      {
-          name: "Prepare a new board",
-          date: new Date(2023, 4, 3),
-      },
-    ],
-    "e2" : backlogList,
-    "e3" : backlogList,
-    "e4" : backlogList,
-  };
-
+  tasks.forEach((task) => {
+    if (tasksByList.has(task.listId)) {
+      tasksByList.get(task.listId).push(task); 
+    }
+  });
 
   return (
     <div>
@@ -60,12 +26,12 @@ function App() {
         <h2 >Project Name</h2>
       </div>
       <div className="d-flex flex-row" style={{width: "1000px"}}>
-        {boardConfig.listConfig.map((column) => (
+        {boardConfig.listConfig.map((list) => (
           <BoardList
-            key={column.id} 
-            name={column.name} 
-            style={column.style}
-            tasks={tasksInColumns[column.id]}  
+            key={list.id} 
+            name={list.name} 
+            style={list.style}
+            tasks={tasksByList.get(list.id)}  
           />
         ))}
       </div> 

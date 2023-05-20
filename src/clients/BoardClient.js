@@ -11,17 +11,17 @@ class BoardClient {
           {
             id: 'e2', 
             name: "To-Do", 
-            style: {backgroundColor: "pink"}
+            style: {backgroundColor: "red"}
           },  
           {
             id: 'e3', 
             name: "In-Progress", 
-            style: {backgroundColor: "pink"}
+            style: {backgroundColor: "purple"}
           }, 
           {
             id: 'e4', 
             name: "Done", 
-            style: {backgroundColor: "pink"}
+            style: {backgroundColor: "green"}
           }, 
         ]
     };
@@ -38,24 +38,29 @@ class BoardClient {
             listId: 'e2',
         },
         {
-            name: "Prepare a task list",
-            date: new Date(2023, 5, 6),
+            name: "naming",
+            date: new Date(2022, 5, 6),
             listId: 'e3',
         },
         {
             name: "Prepare a new board",
-            date: new Date(2023, 4, 3),
-            listId: 'e1',
+            date: new Date(2021, 4, 3),
+            listId: 'e5',
         },
         {
-            name: "Prepare a task list",
-            date: new Date(2023, 5, 6),
+            name: "edit",
+            date: new Date(2023, 5, 8),
             listId: 'e2',
         },
         {
             name: "Prepare a task list",
-            date: new Date(2023, 5, 6),
+            date: new Date(2023, 7, 6),
             listId: 'e3',
+        },
+        {
+          name: "New board task created",
+          date: new Date(2019, 4, 3),
+          listId: 'e3',
         },
       ];
 
