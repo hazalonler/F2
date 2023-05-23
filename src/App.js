@@ -20,6 +20,7 @@ function App() {
     }
   });
 
+
   return (
     <div>
       <div className="container-fluid bg-primary text-white p-3">
@@ -28,10 +29,11 @@ function App() {
       <div className="d-flex flex-row" style={{width: "1000px"}}>
         {boardConfig.listConfig.map((list) => (
           <BoardList
-            key={list.id} 
+            key={list.id}
+            listId={list.id} 
             name={list.name} 
             style={list.style}
-            tasks={tasksByList.get(list.id)}  
+            tasks={tasksByList.get(list.id)}
           />
         ))}
       </div> 
