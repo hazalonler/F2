@@ -10,6 +10,10 @@ const NewTask = (props) => {
         setShowTaskForm(true);
     };
 
+    const cancelButtonHandler = () => {
+        setShowTaskForm(false);
+    };
+
     const saveTaskNameHandler = (enteredTaskName) => {
         const enteredTask = {
             ...enteredTaskName,
@@ -32,7 +36,7 @@ const NewTask = (props) => {
                 </button>
             )}
             {showTaskForm && 
-                (<TaskForm  onSaveTaskName={saveTaskNameHandler} />
+                (<TaskForm  onSaveTaskName={saveTaskNameHandler} onCancel={cancelButtonHandler}/>
             )}
         </div>
     )
