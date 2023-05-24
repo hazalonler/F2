@@ -14,17 +14,9 @@ const NewTask = (props) => {
         setShowTaskForm(false);
     };
 
-    const saveTaskNameHandler = (enteredTaskName) => {
-        const enteredTask = {
-            ...enteredTaskName,
-            id: Math.random().toString() 
-        };
-
-        // board id eklenecek
-
-        props.onAddTask(enteredTask);
+    const saveTaskNameHandler = (enteredTaskData) => {
+        props.onAddTask(enteredTaskData);
         setShowTaskForm(false);
-
     };
 
     return (

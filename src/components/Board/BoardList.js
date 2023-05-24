@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import NewTask from "./NewTask/NewTask";
+import NewTask from "../NewTask/NewTask";
 import ListItem from "./ListItem";
-import BoardClient from "../clients/BoardClient";
+import BoardClient from "../../clients/BoardClient";
 
 
 const BoardList =  (props) => {
@@ -25,17 +25,26 @@ const BoardList =  (props) => {
         }
     });
 
-    const [tasksOnBoard, setTasksOnBoard] = useState(tasksByList);
+    const [tasksOnBoard, setTasksOnBoard] = useState(props.tasks);
  
-    const addNewTaskHandler = (task) => {
-        setTasksOnBoard();
+    const addNewTaskHandler = (newTask) => {
+
+        const enteredTask = {
+            ...newTask,
+            listId: props.listId,
+        };
+
+        setTasksOnBoard(prevTask => {
+            return [enteredTask, ...prevTask];
+        });
     };
+
 
     return (
         <div className="col-lg mt-3 ml-3 shadow-lg p-3 rounded" style={props.style} >
             <h4>{props.name}</h4>
             <ul className="list-unstyled">
-                {props.tasks.map((task) => (
+                {tasksOnBoard.map((task) => (
                     <ListItem name={task.name} date={task.date}/>
                 ))}
                 <NewTask onAddTask={addNewTaskHandler}/>

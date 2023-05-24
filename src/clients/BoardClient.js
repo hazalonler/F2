@@ -11,17 +11,17 @@ class BoardClient {
           {
             id: 'e2', 
             name: "To-Do", 
-            style: {backgroundColor: "red"}
+            style: {backgroundColor: "pink"}
           },  
           {
             id: 'e3', 
             name: "In-Progress", 
-            style: {backgroundColor: "purple"}
+            style: {backgroundColor: "pink"}
           }, 
           {
             id: 'e4', 
             name: "Done", 
-            style: {backgroundColor: "green"}
+            style: {backgroundColor: "pink"}
           }, 
         ]
     };

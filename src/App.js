@@ -1,4 +1,4 @@
-import BoardList from "./components/BoardList";
+import BoardList from "./components/Board/BoardList";
 import BoardClient from "./clients/BoardClient";
 
 function App() {

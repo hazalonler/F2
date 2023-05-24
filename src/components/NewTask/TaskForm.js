@@ -11,7 +11,12 @@ const TaskForm = (props) => {
     const submitHandler = (event) => {
         event.preventDefault();
 
-        props.onSaveTaskName(enteredName);
+        const taskData = {
+            name: enteredName,
+            date: null,
+        };
+
+        props.onSaveTaskName(taskData);
         setEnteredName("");
     };
 
