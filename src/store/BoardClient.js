@@ -67,11 +67,15 @@ class BoardClient {
     }
 
     getBoardConfig () {
-        return this.boardConfig;
+      return this.boardConfig;
     }
 
     getTasks () {
-        return this.tasks;
+      return this.tasks;
+    }
+
+    pushTasks (task) {
+      return this.tasks.concat(task);
     }
 };
 
