@@ -23,18 +23,18 @@ const TaskForm = (props) => {
     return (
         <div >
             <form onSubmit={submitHandler}>
-                <div>
-                    <div>
-                        <label>Task Name</label>
-                        <input 
-                            type="text" 
-                            value={enteredName} 
-                            onChange={nameChangeHandler}/>
+                <div className="input-group-sm mb-2">
+                    <input
+                        class="form-control"
+                        type="text"
+                        placeholder="Enter a task name..." 
+                        value={enteredName} 
+                        onChange={nameChangeHandler}
+                    />
+                    <div className="input-group-append">
+                        <button type="submit" className="btn btn-warning mt-2 mr-2" >Add Task</button>
+                        <button type="button" className="btn btn-warning mt-2 mr-2" onClick={props.onCancel}>Carpi Ikonu Konacak</button>
                     </div>
-                </div>
-                <div>
-                    <button type="submit">Add Task</button>
-                    <button type="button" onClick={props.onCancel}>Carpi Ikonu Konacak</button>
                 </div>
             </form>
         </div>
