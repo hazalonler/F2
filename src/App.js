@@ -1,29 +1,7 @@
-import { useState } from "react";
-
 import BoardList from "./components/Board/BoardList";
 import BoardClient from "./store/BoardClient";
 
 function App() {
-
-  const tasksByList = new Map(
-    BoardClient.getBoardConfig().listConfig.map(list => {
-      return [list.id, []]
-    })
-  );
-
-  BoardClient.getTasks().forEach((task) => {
-    if (tasksByList.has(task.listId)) {
-      tasksByList.get(task.listId).push(task); 
-    }
-  });
-
-  const [tasksOnBoard, setTasksOnBoard] = useState(tasksByList)
-
-  const newTaskHandler = (newTask) => {
-    setTasksOnBoard(
-      tasksByList.get(newTask.listId).push(newTask)
-    );
-  }
 
   return (
       <div>
@@ -37,8 +15,6 @@ function App() {
               listId={list.id} 
               name={list.name} 
               style={list.style}
-              tasks={tasksOnBoard.get(list.id)}
-              onAddNewTask={newTaskHandler}
             />
           ))}
         </div> 

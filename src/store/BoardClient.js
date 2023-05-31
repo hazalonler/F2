@@ -1,12 +1,12 @@
-let boardInstance;
-let tasksInstance;
+let instance;
 
 class BoardClient {
     constructor() {
-      if (boardInstance && tasksInstance) {
+      if (instance) {
         throw new Error("You can only create one board instance and one tasks instance!");
       }
-        boardInstance = this.boardConfig = {
+      instance = this;
+        this.boardConfig = {
           boardName: "Hazal's Project",
           listConfig: [
             {
@@ -32,7 +32,7 @@ class BoardClient {
           ]
         };
 
-        tasksInstance = this.tasks = [
+        this.tasks = [
           {
               name: "Prepare a new board",
               date: new Date(2023, 4, 3),
@@ -73,17 +73,21 @@ class BoardClient {
     }
 
     getBoardConfig () {
-      return boardInstance;
+      return this.boardConfig;
     }
 
     getTasks () {
-      return tasksInstance;
+      return this.tasks;
+    }
+
+    getTasksByListId (listId) {
+      return this.tasks.filter(task => task.listId === listId);
     }
 
     pushTasks (task) {
-      return tasksInstance.concat(task);
+      return this.tasks.concat(task);
     }
 };
 
-const boardClient = Object.freeze(new BoardClient());
-export default boardClient;
+const singletonBoardClient = Object.freeze(new BoardClient());
+export default singletonBoardClient;

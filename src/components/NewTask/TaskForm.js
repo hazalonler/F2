@@ -26,7 +26,7 @@ const TaskForm = (props) => {
             <form onSubmit={submitHandler}>
                 <div className="input-group-sm mb-2">
                     <input
-                        class="form-control"
+                        className="form-control"
                         type="text"
                         placeholder="Enter a task name..." 
                         value={enteredName} 
