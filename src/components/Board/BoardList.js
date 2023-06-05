@@ -7,7 +7,7 @@ import BoardClient from "../../store/BoardClient"
 
 const BoardList =  (props) => {
 
-    const tasks = BoardClient.getTasksByListId(props.listId)
+    const tasks = BoardClient.getTasksByListId(props.listId);
 
     const [tasksOnBoard, setTasksOnBoard] = useState(tasks);
  
@@ -19,19 +19,21 @@ const BoardList =  (props) => {
 
         setTasksOnBoard(prevTasks => {
             if (enteredTask.listId === props.listId) {
-                return [enteredTask, ...prevTasks] 
+                return [enteredTask, ...prevTasks]
             }
         });
     };
 
-    console.log(tasksOnBoard);
-
+   
     return(
         <div className="col-lg mt-3 ml-3 shadow-lg p-3 rounded" style={props.style} >
             <h4>{props.name}</h4>
             <ul className="list-unstyled">
                 {tasksOnBoard.map((task) => (
-                    <ListItem name={task.name} date={task.date}/>
+                    <ListItem 
+                        name={task.name} 
+                        date={task.date}
+                    />
                 ))}
                 <NewTask onAddTask={addNewTaskHandler}/>
             </ul>

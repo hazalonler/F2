@@ -1,11 +1,24 @@
+import { useDrag } from "react-dnd";
 
-function ListItem (props) {
+
+const ListItem = (props) => {
+
+    const [{isDragging}, drag] = useDrag(() => ({
+        type: "ITEM",
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+        }),
+    }))
 
     return (
-        <div className="d-grid gap-2">
-            <button type="button" className="btn btn-warning mb-3" >
+        <div 
+            className="d-grid gap-2" 
+            style={{border: isDragging ? "2px solid grey" : "0px"}} 
+            ref={drag}
+        >
+            <div type="button" className="btn btn-warning mb-3" >
                 {props.name}
-            </button>
+            </div>
         </div>
     );
 
