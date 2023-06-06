@@ -45,9 +45,9 @@ const BoardList =  (props) => {
             <ul className="list-unstyled">
                 {tasksOnBoard.map((task, index) => (
                     <ListItem
+                        key={index}
                         index={index}
-                        name={task.name} 
-                        date={task.date}
+                        item={task}
                         moveListItem={moveListItem}
                     />
                 ))}

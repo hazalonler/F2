@@ -1,32 +1,37 @@
-import { useRef } from "react";
+import { Fragment, useRef, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
+import Window from "./Window";
 
-const ListItem = ({name, index, moveListItem}) => {
+const ListItem = ({item, index, moveListItem}) => {
 
-    const [{isDragging}, dragRef] = useDrag(() => ({
-        type: "ITEM",
-        item: {index},
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging(),
-        }),
-    }));
+    const ref = useRef(null);
     
 
-    const [spec, dropRef] = useDrop({
+    const [, dropRef] = useDrop({
         accept: "ITEM",
         hover(item, monitor) {
+            if (!ref.current) {
+                return;
+            }
         
             const dragIndex = item.index;
             const hoverIndex = index;
-            const hoveredRect = ref.current?.getBoundingClientRect();
+
+
+            if (dragIndex === hoverIndex) {
+                return;
+            }
+
+            const hoveredRect = ref.current.getBoundingClientRect();
             const hoverMiddleY = (hoveredRect.bottom - hoveredRect.top) / 2;
-            const hoverClientY = monitor.getClientOffset().y - hoveredRect.top;
+            const mousePosition = monitor.getClientOffset();
+            const hoverClientY = mousePosition.y - hoveredRect.top;
 
             if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
                 return;
             }
 
-            if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+            if (dragIndex > hoverIndex && hoverClientY < hoverMiddleY) {
                 return;
             }
 
@@ -35,22 +40,41 @@ const ListItem = ({name, index, moveListItem}) => {
         }
     });
 
-    const ref = useRef(null);
-    const dragDropRef = dragRef(dropRef(ref))
+    const [{isDragging}, dragRef] = useDrag(() => ({
+        type: "ITEM",
+        item: {index},
+        collect: (monitor) => ({
+            isDragging: monitor.isDragging(),
+        }),
+    }));
+
+    const [show, setShow] = useState(false);
+
+    const onOpen = () => setShow(true);
+
+    const onClose = () => setShow(false);
+
+    dragRef(dropRef(ref));
 
     return (
+        <Fragment>
             <div 
                 type="button" 
                 className="btn btn-warning mb-3"
                 style={{border: isDragging ? "2px solid grey" : "0px"}} 
-                ref={dragDropRef}    
+                ref={ref}
+                onClick={onOpen}
             >
-                {name}
+                {item.name}
             </div>
+            <Window 
+                item={item}
+                show={show}
+                onClose={onClose}
+            />
+        </Fragment>
     );
 
 };
 
 export default ListItem;
-
-// style={{backgroundColor: "lavender"}}
