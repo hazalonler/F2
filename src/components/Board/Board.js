@@ -2,7 +2,6 @@ import BoardList from "./BoardList";
 import BoardClient from "../../store/BoardClient";
 
 const Board = () => {
-
     const board = BoardClient.getBoardConfig();
 
     return (

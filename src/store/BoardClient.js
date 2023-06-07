@@ -34,36 +34,43 @@ class BoardClient {
 
         this.tasks = [
           {
+              id: '1',
               name: "Prepare a new board",
               date: new Date(2023, 4, 3),
               listId: 'e1',
           },
-          {
+          { 
+              id: '2',
               name: "Prepare a task list",
               date: new Date(2023, 5, 6),
               listId: 'e2',
           },
           {
+              id: '3',
               name: "naming",
               date: new Date(2022, 5, 6),
               listId: 'e3',
           },
           {
+              id: '4',
               name: "Prepare a new board",
               date: new Date(2021, 4, 3),
-              listId: 'e4',
+              listId: 'e3',
           },
           {
+              id: '5',
               name: "edit",
               date: new Date(2023, 5, 8),
               listId: 'e2',
           },
           {
+            id: '6',
               name: "Prepare a task list",
               date: new Date(2023, 7, 6),
               listId: 'e3',
           },
           {
+            id: '7',
             name: "New board task created",
             date: new Date(2019, 4, 3),
             listId: 'e3',

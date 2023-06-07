@@ -41,7 +41,7 @@ const ListItem = ({item, index, moveListItem}) => {
 
     const [{isDragging}, dragRef] = useDrag(() => ({
         type: "ITEM",
-        item: {index},
+        item: {...item, index},
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
