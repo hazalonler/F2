@@ -51,7 +51,7 @@ class BoardClient {
           {
               name: "Prepare a new board",
               date: new Date(2021, 4, 3),
-              listId: 'e5',
+              listId: 'e4',
           },
           {
               name: "edit",

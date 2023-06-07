@@ -5,7 +5,6 @@ import Window from "./Window";
 const ListItem = ({item, index, moveListItem}) => {
 
     const ref = useRef(null);
-    
 
     const [, dropRef] = useDrop({
         accept: "ITEM",

@@ -1,18 +1,20 @@
 import React from "react";
 import { useDrop } from "react-dnd";
-import ITEM_TYPE from "../../store/types";
-import { statuses } from "../../store/data"
+import BoardClient from "../../store/BoardClient"
 
-const DropWrapper = ({ onDrop, children, status }) => {
+const DropWrapper = ({ onDrop, children, id }) => {
+
+    const board = BoardClient.getBoardConfig().listConfig
+
     const [{isOver}, drop] = useDrop({
-        accept: ITEM_TYPE,
+        accept: "ITEM",
         canDrop: (item, monitor) => {
-            const itemIndex = statuses.findIndex(si => si.status === item.status);
-            const statusIndex = statuses.findIndex(si => si.status === status);
-            return [itemIndex+1, itemIndex-1, itemIndex].includes(statusIndex);
+            const itemIndex = board.findIndex(si => si.id === item.listId);
+            const idIndex = board.findIndex(si => si.id === id);
+            return [itemIndex+1, itemIndex-1, itemIndex].includes(idIndex);
         },
         drop: (item, monitor) => {
-            onDrop(item, monitor, status);
+            onDrop(item, monitor, id);
         },
         collect: monitor => ({
             isOver: monitor.isOver()
@@ -20,7 +22,7 @@ const DropWrapper = ({ onDrop, children, status }) => {
     });
 
     return (
-        <div ref={drop} className={"drop-wrapper"}>
+        <div ref={drop} className="d-flex p-3 bg-secondary text-white">
             {React.cloneElement(children, { isOver })}
         </div>
     );
