@@ -32,7 +32,7 @@ const ListItem = ({item, refresh}) => {
             }
     
             dragItem.listId = item.listId;
-            BoardClient.update(dragItem);
+            BoardClient.updateListIdPr(dragItem);
             refresh(); // item in oldugu listi refresh ediyor
         },
 
@@ -72,7 +72,7 @@ const ListItem = ({item, refresh}) => {
                 <div className="btn btn-warning mb-2">{item.name}</div>
             </div>
             <Window 
-                item={item}
+                task={item}
                 show={show}
                 onClose={onClose}
             />

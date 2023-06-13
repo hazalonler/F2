@@ -39,6 +39,7 @@ class BoardClient {
               date: new Date(2023, 4, 3),
               listId: 'e1',
               priorty: 1000,
+              description: "",
           },
           { 
               id: '2',
@@ -46,6 +47,7 @@ class BoardClient {
               date: new Date(2023, 5, 6),
               listId: 'e2',
               priorty: 1000,
+              description: "",
           },
           {
               id: '3',
@@ -53,6 +55,7 @@ class BoardClient {
               date: new Date(2022, 5, 6),
               listId: 'e3',
               priorty: 1000,
+              description: "",
           },
           {
               id: '4',
@@ -60,6 +63,7 @@ class BoardClient {
               date: new Date(2021, 4, 3),
               listId: 'e3',
               priorty: 2000,
+              description: "",
           },
           {
               id: '5',
@@ -67,6 +71,7 @@ class BoardClient {
               date: new Date(2023, 5, 8),
               listId: 'e2',
               priorty: 2000,
+              description: "",
           },
           {
               id: '6',
@@ -74,6 +79,8 @@ class BoardClient {
               date: new Date(2023, 7, 6),
               listId: 'e3',
               priorty: 3000,
+              description: "",
+              
           },
           {
               id: '7',
@@ -81,6 +88,7 @@ class BoardClient {
               date: new Date(2019, 4, 3),
               listId: 'e3',
               priorty: 4000,
+              description: "",
           },
         ];
 
@@ -105,10 +113,16 @@ class BoardClient {
       console.log(newTasks);
     }
 
-    update (task) {
+    updateListIdPr (task) {
       const existingTask = this.tasks.find(t => t.id === task.id)
       existingTask.listId = task.listId;
       existingTask.priorty = task.priorty;
+      console.log(this.tasks);
+    }
+
+    updateTaskDescription (task) {
+      const existingTask = this.tasks.find(t => t.id === task.id)
+      existingTask.description = task.description;
       console.log(this.tasks);
     }
 };

@@ -47,8 +47,6 @@ const BoardList =  ({listId, name, style}) => {
         }, 
         [tasksOnBoard],
     );
-
-    let deletedTask = {};
 /*
     const [{isOver}, drop] = useDrop({
         accept: "ITEM",
@@ -73,18 +71,11 @@ const BoardList =  ({listId, name, style}) => {
         })
     }); 
 */
-    console.log(deletedTask);
-
-    if (deletedTask.length !== 0 && deletedTask.listId === listId) {
-        tasksOnBoard = tasksOnBoard.filter(task => task !== deletedTask);
-    };
-    
-    const className = false ? "list-unstyled bg-info" : "list-unstyled";
  
     return(
         <div className="col-lg mt-3 ml-3 shadow-lg p-3 rounded" style={style} >
             <h4>{name}</h4>
-            <ul className={`${className}`}>
+            <ul className="list-unstyled">
                 {tasksOnBoard.map((task) => (
                     <ListItem
                         key={task.id}
