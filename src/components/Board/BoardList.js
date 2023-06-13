@@ -8,20 +8,31 @@ import { useDrop } from "react-dnd";
 const BoardList =  ({listId, name, style}) => {
 
     const board = BoardClient.getBoardConfig().listConfig;
+    const tasks = BoardClient.getTasks();
     const tasksByList = BoardClient.getTasksByListId(listId);
 
-    const [tasksOnBoard, setTasksOnBoard] = useState(tasksByList);
+    let [tasksOnBoard, setTasksOnBoard] = useState(tasksByList);
  
     const addNewTaskHandler = (newTask) => {
         const enteredTask = {
             ...newTask,
             listId: listId,
+            id: Math.random().toString(),
+            priorty: tasksOnBoard[tasksOnBoard.length-1].priorty + 1,
         };
+        BoardClient.pushTasks(enteredTask);
 
         setTasksOnBoard(prevTasks => {
-            return [enteredTask, ...prevTasks]
-        });
+            return [enteredTask, ...prevTasks] });
+            
     };
+
+    const refresh = useCallback(() => {
+        setTasksOnBoard(_ => {
+            console.log("Refreshing: " + listId);
+            return BoardClient.getTasksByListId(listId);
+        });
+    });
 
     const moveListItem = useCallback(
         (dragIndex, hoverIndex) => {
@@ -37,6 +48,8 @@ const BoardList =  ({listId, name, style}) => {
         [tasksOnBoard],
     );
 
+    let deletedTask = {};
+/*
     const [{isOver}, drop] = useDrop({
         accept: "ITEM",
         canDrop: (item, monitor) => {
@@ -45,32 +58,38 @@ const BoardList =  ({listId, name, style}) => {
             const listIndex = board.findIndex(si => si.id === listId);
             return [itemIndex+1, itemIndex-1, itemIndex].includes(listIndex);
         },
+        
         drop: (item, monitor) => {
-            console.log("drop: item:" + JSON.stringify(item));
+            console.log("start-drop: item:" + JSON.stringify(item));
             setTasksOnBoard(prevState => {
-                const newItems = prevState
-                    .filter(i => i.id !== item.id)
-                    .concat({...item, listId: listId});
-                return [...newItems];
+                item.listId = listId;
+                console.log("end-drop: item:" + JSON.stringify(item));
+                BoardClient.update(item);
+                return BoardClient.getTasksByListId(listId)
             })
         },
         collect: monitor => ({
             isOver: monitor.isOver()
         })
-    });
+    }); 
+*/
+    console.log(deletedTask);
+
+    if (deletedTask.length !== 0 && deletedTask.listId === listId) {
+        tasksOnBoard = tasksOnBoard.filter(task => task !== deletedTask);
+    };
     
-    const className = isOver ? "bg-info" : "list-unstyled";
+    const className = false ? "list-unstyled bg-info" : "list-unstyled";
  
     return(
         <div className="col-lg mt-3 ml-3 shadow-lg p-3 rounded" style={style} >
             <h4>{name}</h4>
-            <ul className={`${className}`} ref={drop}>
-                {tasksOnBoard.map((task, index) => (
+            <ul className={`${className}`}>
+                {tasksOnBoard.map((task) => (
                     <ListItem
                         key={task.id}
-                        index={index}
                         item={task}
-                        moveListItem={moveListItem}
+                        refresh={refresh}
                     />
                 ))}
                 <NewTask onAddTask={addNewTaskHandler}/>

@@ -1,23 +1,20 @@
 import { Fragment, useRef, useState } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import Window from "./Window";
+import BoardClient from "../../store/BoardClient";
 
-const ListItem = ({item, index, moveListItem}) => {
+const ListItem = ({item, refresh}) => {
 
     const ref = useRef(null);
 
-    const [, dropRef] = useDrop({
+    const [ { isOver }, dropRef] = useDrop({
         accept: "ITEM",
-        hover(item, monitor) {
+        hover(dragItem, monitor) {
             if (!ref.current) {
                 return;
             }
-        
-            const dragIndex = item.index;
-            const hoverIndex = index;
 
-
-            if (dragIndex === hoverIndex) {
+            if(dragItem.id === item.id) {
                 return;
             }
 
@@ -26,25 +23,33 @@ const ListItem = ({item, index, moveListItem}) => {
             const mousePosition = monitor.getClientOffset();
             const hoverClientY = mousePosition.y - hoveredRect.top;
 
-            if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-                return;
+            if (hoverClientY < hoverMiddleY) {
+                dragItem.priorty = item.priorty + 1
             }
-
-            if (dragIndex > hoverIndex && hoverClientY < hoverMiddleY) {
-                return;
+    
+            if (hoverClientY > hoverMiddleY) {
+                dragItem.priorty = item.priorty - 1
             }
+    
+            dragItem.listId = item.listId;
+            BoardClient.update(dragItem);
+            refresh(); // item in oldugu listi refresh ediyor
+        },
 
-            moveListItem(dragIndex, hoverIndex);
-            item.index = hoverIndex;
-        }
+        collect: (monitor) => ({
+            isOver: monitor.isOver(),
+        }),
     });
 
     const [{isDragging}, dragRef] = useDrag(() => ({
         type: "ITEM",
-        item: {...item, index},
+        item: {...item},
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),
+        end (item, monitor) {
+            refresh(); // dragitem in oldugu listi refresh ediyor
+        } 
     }));
 
     const [show, setShow] = useState(false);
@@ -59,12 +64,12 @@ const ListItem = ({item, index, moveListItem}) => {
         <Fragment>
             <div 
                 type="button" 
-                className="btn btn-warning mb-3"
-                style={{border: isDragging ? "2px solid grey" : "0px"}} 
+                className="d-flex flex-column"
+                style={{opacity: isDragging || isOver ? "0" : "1"}} 
                 ref={ref}
                 onClick={onOpen}
             >
-                {item.name}
+                <div className="btn btn-warning mb-2">{item.name}</div>
             </div>
             <Window 
                 item={item}

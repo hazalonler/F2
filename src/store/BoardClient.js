@@ -38,42 +38,49 @@ class BoardClient {
               name: "Prepare a new board",
               date: new Date(2023, 4, 3),
               listId: 'e1',
+              priorty: 1000,
           },
           { 
               id: '2',
               name: "Prepare a task list",
               date: new Date(2023, 5, 6),
               listId: 'e2',
+              priorty: 1000,
           },
           {
               id: '3',
               name: "naming",
               date: new Date(2022, 5, 6),
               listId: 'e3',
+              priorty: 1000,
           },
           {
               id: '4',
               name: "Prepare a new board",
               date: new Date(2021, 4, 3),
               listId: 'e3',
+              priorty: 2000,
           },
           {
               id: '5',
               name: "edit",
               date: new Date(2023, 5, 8),
               listId: 'e2',
+              priorty: 2000,
           },
           {
-            id: '6',
+              id: '6',
               name: "Prepare a task list",
               date: new Date(2023, 7, 6),
               listId: 'e3',
+              priorty: 3000,
           },
           {
-            id: '7',
-            name: "New board task created",
-            date: new Date(2019, 4, 3),
-            listId: 'e3',
+              id: '7',
+              name: "New board task created",
+              date: new Date(2019, 4, 3),
+              listId: 'e3',
+              priorty: 4000,
           },
         ];
 
@@ -88,11 +95,21 @@ class BoardClient {
     }
 
     getTasksByListId (listId) {
-      return this.tasks.filter(task => task.listId === listId);
+      const result = this.tasks.filter(task => task.listId === listId).sort((a, b) => a.priorty - b.priorty);
+      console.log("getTaskByListId: " + JSON.stringify(result));
+      return result;
     }
 
     pushTasks (task) {
-      return this.tasks.concat(task);
+      const newTasks = this.tasks.concat(task);
+      console.log(newTasks);
+    }
+
+    update (task) {
+      const existingTask = this.tasks.find(t => t.id === task.id)
+      existingTask.listId = task.listId;
+      existingTask.priorty = task.priorty;
+      console.log(this.tasks);
     }
 };
 
