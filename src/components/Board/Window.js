@@ -47,14 +47,12 @@ const Window = ({show, onClose, task}) => {
             onRequestClose={onClose}
         >
             <div >
-                <div className="modal-content mb-4">
-                    <div className="modal-header">
+                <div className="modal-content mb-4" style={{borderColor: "white"}}>
+                    <div className="modal-header" style={{borderColor: "white"}}>
                         <h2 className="modal-title" style={{flex: "1 90%"}}>Name of Task: {task.name}</h2>
                         <button type="button" className="btn-close btn-warning rounded" onClick={onClose}>X</button>
                     </div>
-                    <div className="modal-header">
-                        <p className="fs-1">in list {taskList.name}</p>
-                    </div>
+                    <p className="text-start ml-3" style={{fontSize: "14px"}}>in list {taskList.name}</p>
                 </div>
                 <div className="model-dialog-scrollable">
                     <div className="modal-header">
