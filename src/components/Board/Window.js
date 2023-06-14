@@ -8,13 +8,14 @@ Modal.setAppElement("#root");
 const Window = ({show, onClose, task}) => {
 
     const board = BoardClient.getBoardConfig().listConfig;
-
-    const [input, setDescription] = useState(task.description);
+    let taskList = board.find(list => list.id === task.listId); 
+    
+    const [input, setInput] = useState(task.description);
+    const [oldInput, setOldInput] = useState("");
     const [typing, setTyping] = useState(false);
 
     const inputChangeHandler = (event) => {
-        setTyping(true);
-        setDescription(event.target.value);
+        setInput(event.target.value);
     };
 
     const submitHandler = (event) => {
@@ -25,23 +26,20 @@ const Window = ({show, onClose, task}) => {
             description: input
         }
 
-        console.log(taskData);
-
         BoardClient.updateTaskDescription(taskData);
-        setDescription(taskData.description);
+        setOldInput(input);
         setTyping(false);
     };
 
     const cancelHandler = (event) => {
+        setInput(oldInput);
         setTyping(false);
     };
 
     const clickHandler = () => {
         setTyping(true);
     };
-
-    let taskList = board.find(list => list.id === task.listId); 
-
+    
     const rowsNum = typing ? 8 : 3;
 
     let description = "";
