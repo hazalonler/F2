@@ -30,14 +30,14 @@ const ListItem = ({item, refresh}) => {
             if (hoverClientY > hoverMiddleY) {
                 dragItem.priorty = item.priorty - 1
             }
-    
+            
             dragItem.listId = item.listId;
             BoardClient.updateListIdPr(dragItem);
             refresh(); // item in oldugu listi refresh ediyor
         },
 
         collect: (monitor) => ({
-            isOver: monitor.isOver(),
+            isOver: !!monitor.isOver(),
         }),
     });
 
@@ -45,7 +45,7 @@ const ListItem = ({item, refresh}) => {
         type: "ITEM",
         item: {...item},
         collect: (monitor) => ({
-            isDragging: monitor.isDragging(),
+            isDragging: !!monitor.isDragging(),
         }),
         end (item, monitor) {
             refresh(); // dragitem in oldugu listi refresh ediyor
@@ -64,12 +64,12 @@ const ListItem = ({item, refresh}) => {
         <Fragment>
             <div 
                 type="button" 
-                className="d-flex flex-column"
+                className="d-flex flex-column mb-2 rounded"
                 style={{opacity: isDragging || isOver ? "0" : "1"}} 
                 ref={ref}
                 onClick={onOpen}
             >
-                <div className="btn btn-warning mb-2">{item.name}</div>
+                <div className="btn btn-warning rounded">{item.name}</div>
             </div>
             <Window 
                 task={item}

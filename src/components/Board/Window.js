@@ -78,16 +78,19 @@ const Window = ({show, onClose, task}) => {
                                     {description}
                                 </div>   
                     }
-                    {typing && <textarea
-                                    className="form-control"
-                                    type="textarea"
-                                    rows={`${rowsNum}`} 
-                                    value={input} 
-                                    onChange={inputChangeHandler} 
-                                ></textarea>}
+                    {typing && <div>
+                                    <textarea
+                                        className="form-control"
+                                        type="textarea"
+                                        rows={`${rowsNum}`} 
+                                        value={input} 
+                                        onChange={inputChangeHandler} 
+                                    ></textarea>
+                                    <button type="button" className="btn-close btn-warning mt-2 rounded mr-2 ml-3" onClick={submitHandler}>Save</button>
+                                    <button type="button" className="btn-close btn-secondary mt-2 rounded" onClick={cancelHandler}>Cancel</button>
+                                </div>
+                    }
                     </div>
-                    <button type="button" className="btn-close btn-warning mt-2 rounded mr-2 ml-3" onClick={submitHandler}>Save</button>
-                    <button type="button" className="btn-close btn-secondary mt-2 rounded" onClick={cancelHandler}>Cancel</button>
                 </div>
             </div>
         </Modal>

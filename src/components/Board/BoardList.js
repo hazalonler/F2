@@ -47,6 +47,19 @@ const BoardList =  ({listId, name, style}) => {
         }, 
         [tasksOnBoard],
     );
+
+    const [ {isOver}, drop] = useDrop({
+        accept: "ITEM",
+        drop: (dragItem, monitor) => {
+            console.log("listId of Board : " + JSON.stringify(listId));
+            dragItem.listId = listId;
+            BoardClient.updateListIdPr(dragItem);
+            refresh();
+        },
+        collect: (monitor) => ({
+            isOver: !!monitor.isOver(),
+        }),
+    });
 /*
     const [{isOver}, drop] = useDrop({
         accept: "ITEM",
@@ -66,16 +79,13 @@ const BoardList =  ({listId, name, style}) => {
                 return BoardClient.getTasksByListId(listId)
             })
         },
-        collect: monitor => ({
-            isOver: monitor.isOver()
-        })
     }); 
 */
  
     return(
-        <div className="col-lg mt-3 ml-3 shadow-lg p-3 rounded" style={style} >
+        <div  className="col-lg mt-3 ml-3 shadow-lg p-3 rounded" style={style} >
             <h4>{name}</h4>
-            <ul className="list-unstyled">
+            <ul ref={drop} className="list-unstyled">
                 {tasksOnBoard.map((task) => (
                     <ListItem
                         key={task.id}

@@ -59,7 +59,7 @@ class BoardClient {
           },
           {
               id: '4',
-              name: "Prepare a new board",
+              name: "Make a to-do list for shopping",
               date: new Date(2021, 4, 3),
               listId: 'e3',
               priorty: 2000,
@@ -75,7 +75,7 @@ class BoardClient {
           },
           {
               id: '6',
-              name: "Prepare a task list",
+              name: "Going to lake side",
               date: new Date(2023, 7, 6),
               listId: 'e3',
               priorty: 3000,
@@ -104,7 +104,6 @@ class BoardClient {
 
     getTasksByListId (listId) {
       const result = this.tasks.filter(task => task.listId === listId).sort((a, b) => a.priorty - b.priorty);
-      console.log("getTaskByListId: " + JSON.stringify(result));
       return result;
     }
 
