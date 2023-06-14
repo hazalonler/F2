@@ -28,18 +28,29 @@ const Window = ({show, onClose, task}) => {
         console.log(taskData);
 
         BoardClient.updateTaskDescription(taskData);
-        setDescription("");
+        setDescription(taskData.description);
         setTyping(false);
     };
 
     const cancelHandler = (event) => {
-        setDescription("");
         setTyping(false);
+    };
+
+    const clickHandler = () => {
+        setTyping(true);
     };
 
     let taskList = board.find(list => list.id === task.listId); 
 
     const rowsNum = typing ? 8 : 3;
+
+    let description = "";
+
+    if (input.length === 0) {
+        description = "Add a more detailed description... ";
+    } else {
+        description = input;
+    }
 
     return (
         <Modal
@@ -58,15 +69,24 @@ const Window = ({show, onClose, task}) => {
                     <div className="modal-header">
                         <h4 className="modal-title">Description </h4>
                     </div>
-                    <textarea
-                        className="form-control"
-                        type="textarea"
-                        rows={`${rowsNum}`}
-                        placeholder="Add a more detailed description... "
-                        value={input} 
-                        onChange={inputChangeHandler} 
-                    ></textarea>
-                    <button type="button" className="btn-close btn-warning mt-2 rounded mr-2" onClick={submitHandler}>Save</button>
+                    <div>
+                    {!typing && <div 
+                                    className="d-flex flex-column mt-2 ml-3 mb-2"
+                                    type="button"
+                                    onClick={clickHandler}
+                                >
+                                    {description}
+                                </div>   
+                    }
+                    {typing && <textarea
+                                    className="form-control"
+                                    type="textarea"
+                                    rows={`${rowsNum}`} 
+                                    value={input} 
+                                    onChange={inputChangeHandler} 
+                                ></textarea>}
+                    </div>
+                    <button type="button" className="btn-close btn-warning mt-2 rounded mr-2 ml-3" onClick={submitHandler}>Save</button>
                     <button type="button" className="btn-close btn-secondary mt-2 rounded" onClick={cancelHandler}>Cancel</button>
                 </div>
             </div>
