@@ -84,7 +84,7 @@ const BoardList =  ({listId, name, style}) => {
  
     return(
         <div className="col-lg mt-3 ml-3 shadow-lg p-3" style={style} >
-            <h4>{name}</h4>
+            <h4 style={{color: "rgb(96, 96, 96)"}} >{name}</h4>
             <ul ref={drop} className="list-unstyled">
                 {tasksOnBoard.map((task) => (
                     <ListItem
