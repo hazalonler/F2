@@ -12,22 +12,22 @@ class BoardClient {
             {
               id: 'e1', 
               name: "Backlog", 
-              style: {backgroundColor: "pink"}
+              style: {backgroundColor: "rgb(255, 204, 204)", borderRadius: "12px"}
             },
             {
               id: 'e2', 
               name: "To-Do", 
-              style: {backgroundColor: "pink"}
+              style: {backgroundColor: "rgb(255, 204, 204)", borderRadius: "12px"}
             },  
             {
               id: 'e3', 
               name: "In-Progress", 
-              style: {backgroundColor: "pink"}
+              style: {backgroundColor: "rgb(255, 204, 204)", borderRadius: "12px"}
             }, 
             {
               id: 'e4', 
               name: "Done", 
-              style: {backgroundColor: "pink"}
+              style: {backgroundColor: "rgb(255, 204, 204)", borderRadius: "12px"}
             }, 
           ]
         };

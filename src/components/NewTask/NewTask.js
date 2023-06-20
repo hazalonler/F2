@@ -23,7 +23,16 @@ const NewTask = (props) => {
 
         <div>
             {!showTaskForm && 
-                (<button type="button" className="btn btn-warning mb-3" onClick={addButtonHandler}> 
+                (<button 
+                    type="button" 
+                    className="btn mb-3" 
+                    style={{
+                        borderRadius: "12px", 
+                        backgroundColor: "rgb(255, 178, 178)", 
+                        borderColor: "rgb(255, 178, 178)"
+                    }} 
+                    onClick={addButtonHandler}
+                > 
                     + Add Task
                 </button>
             )}

@@ -1,6 +1,9 @@
 import Modal from "react-modal";
 import { useState } from "react";
 import BoardClient from "../../store/BoardClient";
+import { RxCross1 } from "react-icons/rx";
+import { IoCardOutline } from "react-icons/io5";
+import { MdNotes } from "react-icons/md";
 
 
 Modal.setAppElement("#root");
@@ -54,22 +57,40 @@ const Window = ({show, onClose, task}) => {
         <Modal
             isOpen={show}
             onRequestClose={onClose}
+            style={{content: {borderRadius: "15px", backgroundColor: "rgb(255, 204, 204)", width: "600px"}}}
         >
             <div >
-                <div className="modal-content mb-4" style={{borderColor: "white"}}>
-                    <div className="modal-header" style={{borderColor: "white"}}>
-                        <h2 className="modal-title" style={{flex: "1 90%"}}>Name of Task: {task.name}</h2>
-                        <button type="button" className="btn-close btn-warning rounded" onClick={onClose}>X</button>
+                <div className="modal-content mb-5" style={{borderColor: "rgb(255, 204, 204)", backgroundColor: "rgb(255, 204, 204)"}}>
+                    <div className="modal-header p-0 align-top" style={{borderColor: "rgb(255, 204, 204)"}}>
+                        <IoCardOutline className="mr-2 mt-2" size="16px"/>
+                        <h4 className="modal-title" style={{flex: "1 90%"}}>Name of Task: {task.name}</h4>
+                        <RxCross1 
+                            type="button" 
+                            className="btn-close mt-2 rounded"
+                            size="20px" 
+                            onMouseOver={({target}) => target.style.backgroundColor="rgb(255, 186, 186)"} 
+                            onMouseOut={({target}) => target.style.backgroundColor="rgb(255, 204, 204)"} 
+                            onClick={onClose}
+                        >
+                        </RxCross1>
                     </div>
-                    <p className="text-start ml-3" style={{fontSize: "14px"}}>in list {taskList.name}</p>
+                    <p className="text-start ml-4" style={{fontSize: "14px"}}>in list {taskList.name}</p>
                 </div>
                 <div className="model-dialog-scrollable">
-                    <div className="modal-header">
-                        <h4 className="modal-title">Description </h4>
+                    <div className="modal-header p-0">
+                        <MdNotes className="mr-2 mt-1" size="16px"/>
+                        <h5 className="modal-title" style={{flex: "1 90%"}}>Description </h5>
                     </div>
                     <div>
                     {!typing && <div 
-                                    className="d-flex flex-column mt-2 ml-3 mb-2"
+                                    className="d-flex flex-column mt-2 mb-2"
+                                    style={{
+                                        backgroundColor: "rgb(255, 186, 186)", 
+                                        height: "100px", 
+                                        borderRadius: "12px"
+                                    }}
+                                    onMouseOver={({target}) => target.style.backgroundColor="rgb(255, 178, 178)"}
+                                    onMouseOut={({target}) => target.style.backgroundColor="rgb(255, 186, 186)"}
                                     type="button"
                                     onClick={clickHandler}
                                 >

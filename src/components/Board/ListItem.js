@@ -64,12 +64,21 @@ const ListItem = ({item, refresh}) => {
         <Fragment>
             <div 
                 type="button" 
-                className="d-flex flex-column mb-2 rounded"
+                className="d-flex flex-column mb-2"
                 style={{opacity: isDragging || isOver ? "0" : "1"}} 
                 ref={ref}
                 onClick={onOpen}
             >
-                <div className="btn btn-warning rounded">{item.name}</div>
+                <div 
+                    className="btn" 
+                    style={{
+                        borderRadius: "12px", 
+                        backgroundColor: "rgb(255, 178, 178)", 
+                        borderColor: "rgb(255, 178, 178)"
+                    }}
+                >
+                    {item.name}
+                </div>
             </div>
             <Window 
                 task={item}
