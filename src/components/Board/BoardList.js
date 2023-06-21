@@ -18,12 +18,15 @@ const BoardList =  ({listId, name, style}) => {
             ...newTask,
             listId: listId,
             id: Math.random().toString(),
-            priorty: tasksOnBoard[tasksOnBoard.length-1].priorty + 1,
+            priorty: tasksOnBoard[tasksOnBoard.length-1].priorty + 1000,
+            description: "",
         };
-        BoardClient.pushTasks(enteredTask);
+        // BoardClient.pushTasks(enteredTask);
 
         setTasksOnBoard(prevTasks => {
-            return [enteredTask, ...prevTasks] });
+            const updatedTasks = [enteredTask, ...prevTasks]; 
+            return updatedTasks.sort((a, b) => a.priorty - b.priorty);
+        });
             
     };
 

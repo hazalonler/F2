@@ -109,7 +109,7 @@ class BoardClient {
 
     pushTasks (task) {
       const newTasks = this.tasks.concat(task);
-      console.log(newTasks);
+      return newTasks;
     }
 
     updateListIdPr (task) {
