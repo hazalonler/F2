@@ -60,6 +60,12 @@ const ListItem = ({item, refresh}) => {
 
     dragRef(dropRef(ref));
 
+    let shownItemName = item.name;
+
+    if (shownItemName.length > 20) {
+        shownItemName = shownItemName.slice(0,20)
+    }
+
     return (
         <Fragment>
             <div 
@@ -77,7 +83,7 @@ const ListItem = ({item, refresh}) => {
                         borderColor: "rgb(255, 178, 178)"
                     }}
                 >
-                    {item.name}
+                    {shownItemName}
                 </div>
             </div>
             <Window 

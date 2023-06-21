@@ -101,6 +101,7 @@ const Window = ({show, onClose, task}) => {
                                     <textarea
                                         className="form-control"
                                         type="textarea"
+                                        autoFocus
                                         rows={`${rowsNum}`} 
                                         value={input} 
                                         onChange={inputChangeHandler} 

@@ -21,7 +21,7 @@ const BoardList =  ({listId, name, style}) => {
             priorty: tasksOnBoard[tasksOnBoard.length-1].priorty + 1000,
             description: "",
         };
-        // BoardClient.pushTasks(enteredTask);
+        // BoardClient.pushTasks(enteredTask); new task has to be set on the backend
 
         setTasksOnBoard(prevTasks => {
             const updatedTasks = [enteredTask, ...prevTasks]; 
