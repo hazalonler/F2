@@ -63,7 +63,7 @@ const Window = ({show, onClose, task}) => {
                 <div className="modal-content mb-5" style={{borderColor: "rgb(255, 204, 204)", backgroundColor: "rgb(255, 204, 204)"}}>
                     <div className="modal-header p-0 align-top" style={{borderColor: "rgb(255, 204, 204)"}}>
                         <IoCardOutline className="mr-2 mt-2" size="16px"/>
-                        <h4 className="modal-title" style={{flex: "1 90%"}}>Name of Task: {task.name}</h4>
+                        <h4 className="modal-title" style={{flex: "1 90%"}}>{task.name}</h4>
                         <RxCross1 
                             type="button" 
                             className="btn-close mt-2 rounded"

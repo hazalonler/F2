@@ -63,7 +63,7 @@ const ListItem = ({item, refresh}) => {
     let shownItemName = item.name;
 
     if (shownItemName.length > 20) {
-        shownItemName = shownItemName.slice(0,20)
+        shownItemName = shownItemName.slice(0,20) + "..."
     }
 
     return (

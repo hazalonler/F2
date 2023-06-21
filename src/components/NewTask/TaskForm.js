@@ -30,6 +30,8 @@ const TaskForm = (props) => {
                         style={{borderRadius: "12px"}}
                         type="text"
                         autoFocus
+                        maxLength="200"
+                        minLength="5"
                         placeholder="Enter a task name..." 
                         value={enteredName} 
                         onChange={nameChangeHandler}
