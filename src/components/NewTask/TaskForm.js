@@ -29,6 +29,7 @@ const TaskForm = (props) => {
                         className="form-control"
                         style={{borderRadius: "12px"}}
                         type="text"
+                        autoFocus
                         placeholder="Enter a task name..." 
                         value={enteredName} 
                         onChange={nameChangeHandler}
