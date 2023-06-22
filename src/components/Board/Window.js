@@ -4,14 +4,14 @@ import BoardClient from "../../store/BoardClient";
 import { RxCross1 } from "react-icons/rx";
 import { IoCardOutline } from "react-icons/io5";
 import { MdNotes } from "react-icons/md";
-import AuthContext from "../../store/auth-ctx";
+import TaskContext from "../../store/task-ctx";
 
 
 Modal.setAppElement("#root");
 
 const Window = ({show, onClose}) => {
 
-    const ctx = useContext(AuthContext);
+    const ctx = useContext(TaskContext);
 
     const board = BoardClient.getBoardConfig().listConfig;
     let taskList = board.find(list => list.id === ctx.listId); 

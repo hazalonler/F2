@@ -2,11 +2,11 @@ import { Fragment, useRef, useState, useContext } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import Window from "./Window";
 import BoardClient from "../../store/BoardClient";
-import AuthContext from "../../store/auth-ctx";
+import TaskContext from "../../store/task-ctx";
 
 const ListItem = ({refresh}) => {
 
-    const ctx = useContext(AuthContext);
+    const ctx = useContext(TaskContext);
 
     const ref = useRef(null);
 

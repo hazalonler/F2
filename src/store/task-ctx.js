@@ -1,7 +1,6 @@
 import React from "react";
-import BoardClient from "./BoardClient"; 
 
-const AuthContext = React.createContext({
+const TaskContext = React.createContext({
     id: "",
     name: "",
     date: null,
@@ -10,4 +9,4 @@ const AuthContext = React.createContext({
     description: "",
 });
 
-export default AuthContext;
+export default TaskContext;
