@@ -33,6 +33,8 @@ const ListItem = ({refresh}) => {
             if (hoverClientY > hoverMiddleY) {
                 dragItem.priorty = ctx.priorty - 1
             }
+
+            console.log("Empty of not?:" + ctx.name + ctx.listId);
             
             dragItem.listId = ctx.listId;
             BoardClient.updateListIdPr(dragItem);
@@ -52,7 +54,7 @@ const ListItem = ({refresh}) => {
         }),
         end (item, monitor) {
             refresh(); // dragitem in oldugu listi refresh ediyor
-        } 
+        }
     }));
 
     const [show, setShow] = useState(false);

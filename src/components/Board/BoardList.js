@@ -38,54 +38,28 @@ const BoardList =  ({listId, name, style}) => {
         });
     });
 
-    const moveListItem = useCallback(
-        (dragIndex, hoverIndex) => {
-            const dragItem = tasksOnBoard[dragIndex]
-            const hoverItem = tasksOnBoard[hoverIndex]
-            setTasksOnBoard(tasksOnBoard  => {
-                const updatedTasks = [...tasksOnBoard]
-                updatedTasks[dragIndex] = hoverItem
-                updatedTasks[hoverIndex] = dragItem
-                return updatedTasks
-            });
-        }, 
-        [tasksOnBoard],
-    );
-
     const [ {isOver}, drop] = useDrop({
         accept: "ITEM",
-        drop: (dragItem, monitor) => {
+        canDrop: (dragItem, monitor) => {
             console.log("listId of Board : " + JSON.stringify(listId));
             dragItem.listId = listId;
             BoardClient.updateListIdPr(dragItem);
             refresh();
         },
+
+        drop: (dragItem, monitor) => {
+            console.log("listId of Board : " + JSON.stringify(listId));
+            dragItem.listId = listId;
+            BoardClient.updateListIdPr(dragItem);
+            refresh();
+            
+        },
         collect: (monitor) => ({
             isOver: !!monitor.isOver(),
         }),
     });
-/*
-    const [{isOver}, drop] = useDrop({
-        accept: "ITEM",
-        canDrop: (item, monitor) => {
-            console.log("canDrop: item:" + JSON.stringify(item));
-            const itemIndex = board.findIndex(si => si.id === item.listId);
-            const listIndex = board.findIndex(si => si.id === listId);
-            return [itemIndex+1, itemIndex-1, itemIndex].includes(listIndex);
-        },
-        
-        drop: (item, monitor) => {
-            console.log("start-drop: item:" + JSON.stringify(item));
-            setTasksOnBoard(prevState => {
-                item.listId = listId;
-                console.log("end-drop: item:" + JSON.stringify(item));
-                BoardClient.update(item);
-                return BoardClient.getTasksByListId(listId)
-            })
-        },
-    }); 
-*/
- 
+
+    
     return(
         <div className="col-lg mt-3 ml-3 shadow-lg p-3" style={style} >
             <h4 style={{color: "rgb(96, 96, 96)"}} >{name}</h4>
