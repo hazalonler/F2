@@ -14,9 +14,9 @@ const Window = ({show, onClose}) => {
     const ctx = useContext(AuthContext);
 
     const board = BoardClient.getBoardConfig().listConfig;
-    let taskList = board.find(list => list.id === ctx.taskContext.listId); 
+    let taskList = board.find(list => list.id === ctx.listId); 
     
-    const [input, setInput] = useState(ctx.taskContext.description);
+    const [input, setInput] = useState(ctx.description);
     const [oldInput, setOldInput] = useState("");
     const [typing, setTyping] = useState(false);
 
@@ -28,7 +28,7 @@ const Window = ({show, onClose}) => {
         event.preventDefault();
 
         const taskData = {
-            ...ctx.taskContext,
+            ...ctx,
             description: input
         }
 
@@ -66,7 +66,7 @@ const Window = ({show, onClose}) => {
                 <div className="modal-content mb-5" style={{borderColor: "rgb(255, 204, 204)", backgroundColor: "rgb(255, 204, 204)"}}>
                     <div className="modal-header p-0 align-top" style={{borderColor: "rgb(255, 204, 204)"}}>
                         <IoCardOutline className="mr-2 mt-2" size="16px"/>
-                        <h4 className="modal-title" style={{flex: "1 90%"}}>{ctx.taskContext.name}</h4>
+                        <h4 className="modal-title" style={{flex: "1 90%"}}>{ctx.name}</h4>
                         <RxCross1 
                             type="button" 
                             className="btn-close mt-2 rounded"

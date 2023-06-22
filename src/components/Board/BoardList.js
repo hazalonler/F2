@@ -93,7 +93,12 @@ const BoardList =  ({listId, name, style}) => {
                     {tasksOnBoard.map((task) => (
                         <AuthContext.Provider 
                             value={{
-                                taskContext: task
+                                id: task.id,
+                                name: task.name,
+                                date: task.date,
+                                listId: task.listId,
+                                priorty: task.priorty,
+                                description: task.description,
                             }}
                         >
                             <ListItem

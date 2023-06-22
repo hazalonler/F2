@@ -7,7 +7,6 @@ import AuthContext from "../../store/auth-ctx";
 const ListItem = ({refresh}) => {
 
     const ctx = useContext(AuthContext);
-    console.log(ctx.taskContext);
 
     const ref = useRef(null);
 
@@ -64,7 +63,7 @@ const ListItem = ({refresh}) => {
 
     dragRef(dropRef(ref));
 
-    let shownName = ctx.taskContext.name;
+    let shownName = ctx.name;
 
     if (shownName.length > 20) {
         shownName = shownName.slice(0,20) + "..."
