@@ -1,9 +1,13 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useRef, useState, useContext } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import Window from "./Window";
 import BoardClient from "../../store/BoardClient";
+import AuthContext from "../../store/auth-ctx";
 
-const ListItem = ({item, refresh}) => {
+const ListItem = ({refresh}) => {
+
+    const ctx = useContext(AuthContext);
+    console.log(ctx.taskContext);
 
     const ref = useRef(null);
 
@@ -14,7 +18,7 @@ const ListItem = ({item, refresh}) => {
                 return;
             }
 
-            if(dragItem.id === item.id) {
+            if(dragItem.id === ctx.id) {
                 return;
             }
 
@@ -24,14 +28,14 @@ const ListItem = ({item, refresh}) => {
             const hoverClientY = mousePosition.y - hoveredRect.top;
 
             if (hoverClientY < hoverMiddleY) {
-                dragItem.priorty = item.priorty + 1
+                dragItem.priorty = ctx.priorty + 1
             }
     
             if (hoverClientY > hoverMiddleY) {
-                dragItem.priorty = item.priorty - 1
+                dragItem.priorty = ctx.priorty - 1
             }
             
-            dragItem.listId = item.listId;
+            dragItem.listId = ctx.listId;
             BoardClient.updateListIdPr(dragItem);
             refresh(); // item in oldugu listi refresh ediyor
         },
@@ -43,7 +47,7 @@ const ListItem = ({item, refresh}) => {
 
     const [{isDragging}, dragRef] = useDrag(() => ({
         type: "ITEM",
-        item: {...item},
+        item: {...ctx},
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
         }),
@@ -60,11 +64,12 @@ const ListItem = ({item, refresh}) => {
 
     dragRef(dropRef(ref));
 
-    let shownItemName = item.name;
+    let shownName = ctx.taskContext.name;
 
-    if (shownItemName.length > 20) {
-        shownItemName = shownItemName.slice(0,20) + "..."
+    if (shownName.length > 20) {
+        shownName = shownName.slice(0,20) + "..."
     }
+
 
     return (
         <Fragment>
@@ -83,16 +88,16 @@ const ListItem = ({item, refresh}) => {
                         borderColor: "rgb(255, 178, 178)"
                     }}
                 >
-                    {shownItemName}
+                    {shownName}
                 </div>
             </div>
             <Window 
-                task={item}
                 show={show}
                 onClose={onClose}
             />
         </Fragment>
     );
+
 
 };
 

@@ -4,6 +4,7 @@ import NewTask from "../NewTask/NewTask";
 import ListItem from "./ListItem";
 import BoardClient from "../../store/BoardClient"
 import { useDrop } from "react-dnd";
+import AuthContext from "../../store/auth-ctx";
 
 const BoardList =  ({listId, name, style}) => {
 
@@ -88,16 +89,21 @@ const BoardList =  ({listId, name, style}) => {
     return(
         <div className="col-lg mt-3 ml-3 shadow-lg p-3" style={style} >
             <h4 style={{color: "rgb(96, 96, 96)"}} >{name}</h4>
-            <ul ref={drop} className="list-unstyled">
-                {tasksOnBoard.map((task) => (
-                    <ListItem
-                        key={task.id}
-                        item={task}
-                        refresh={refresh}
-                    />
-                ))}
-                <NewTask onAddTask={addNewTaskHandler}/>
-            </ul>
+                <ul ref={drop} className="list-unstyled">
+                    {tasksOnBoard.map((task) => (
+                        <AuthContext.Provider 
+                            value={{
+                                taskContext: task
+                            }}
+                        >
+                            <ListItem
+                                key={task.id}
+                                refresh={refresh}
+                            />
+                        </AuthContext.Provider>
+                    ))}
+                    <NewTask onAddTask={addNewTaskHandler}/>
+                </ul>
         </div>
     );
 };

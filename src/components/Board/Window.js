@@ -1,19 +1,22 @@
 import Modal from "react-modal";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import BoardClient from "../../store/BoardClient";
 import { RxCross1 } from "react-icons/rx";
 import { IoCardOutline } from "react-icons/io5";
 import { MdNotes } from "react-icons/md";
+import AuthContext from "../../store/auth-ctx";
 
 
 Modal.setAppElement("#root");
 
-const Window = ({show, onClose, task}) => {
+const Window = ({show, onClose}) => {
+
+    const ctx = useContext(AuthContext);
 
     const board = BoardClient.getBoardConfig().listConfig;
-    let taskList = board.find(list => list.id === task.listId); 
+    let taskList = board.find(list => list.id === ctx.taskContext.listId); 
     
-    const [input, setInput] = useState(task.description);
+    const [input, setInput] = useState(ctx.taskContext.description);
     const [oldInput, setOldInput] = useState("");
     const [typing, setTyping] = useState(false);
 
@@ -25,7 +28,7 @@ const Window = ({show, onClose, task}) => {
         event.preventDefault();
 
         const taskData = {
-            ...task,
+            ...ctx.taskContext,
             description: input
         }
 
@@ -63,7 +66,7 @@ const Window = ({show, onClose, task}) => {
                 <div className="modal-content mb-5" style={{borderColor: "rgb(255, 204, 204)", backgroundColor: "rgb(255, 204, 204)"}}>
                     <div className="modal-header p-0 align-top" style={{borderColor: "rgb(255, 204, 204)"}}>
                         <IoCardOutline className="mr-2 mt-2" size="16px"/>
-                        <h4 className="modal-title" style={{flex: "1 90%"}}>{task.name}</h4>
+                        <h4 className="modal-title" style={{flex: "1 90%"}}>{ctx.taskContext.name}</h4>
                         <RxCross1 
                             type="button" 
                             className="btn-close mt-2 rounded"
