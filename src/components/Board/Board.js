@@ -1,12 +1,22 @@
 import BoardList from "./BoardList";
 import BoardClient from "../../store/BoardClient";
+import { useEffect, useState } from "react";
 
 const Board = () => {
-    const board = BoardClient.getBoardConfig();
+
+    const [board, setBoard] = useState([]);
+
+    useEffect(() => {
+        BoardClient.getBoardConfig()
+            .then((data) => {
+                    console.log(data.list_config);
+                    setBoard(data.list_config);
+                });
+     }, []);
 
     return (
         <div className="d-flex flex-row" style={{width: "1000px"}}>
-            {board.listConfig.map((list) => {
+            {board.map((list) => {
                 return (
                     <BoardList
                         key={list.id}

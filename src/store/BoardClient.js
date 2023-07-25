@@ -95,16 +95,27 @@ class BoardClient {
     }
 
     getBoardConfig () {
-      return this.boardConfig;
+      return fetch('http://localhost:8000/api/board/a1')
+              .then(response => response.json())
+              .catch((e) => {
+                console.log("Failed to fetch board config: " + e);
+              });
     }
 
     getTasks () {
-      return this.tasks;
+      return fetch('http://localhost:8000/api/board/a1/tasks')
+              .then(response => response.json())
+              .catch((e) => {
+                console.log("Failed to fetch tasks: " + e);
+              });
     }
 
     getTasksByListId (listId) {
-      const result = this.tasks.filter(task => task.listId === listId).sort((a, b) => a.priorty - b.priorty);
-      return result;
+      return fetch('http://localhost:8000/api/board/a1/tasks')
+              .then(response => response.json())
+              .catch((e) => {
+                console.log("Failed to fetch tasks: " + e);
+              });
     }
 
     pushTasks (task) {

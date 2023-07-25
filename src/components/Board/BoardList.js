@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useEffect, useCallback, useState } from "react";
 
 import NewTask from "../NewTask/NewTask";
 import ListItem from "./ListItem";
@@ -8,11 +8,17 @@ import TaskContext from "../../store/task-ctx";
 
 const BoardList =  ({listId, name, style}) => {
 
-    const board = BoardClient.getBoardConfig().listConfig;
-    const tasks = BoardClient.getTasks();
-    const tasksByList = BoardClient.getTasksByListId(listId);
+    let [tasksOnBoard, setTasksOnBoard] = useState([]);
 
-    let [tasksOnBoard, setTasksOnBoard] = useState(tasksByList);
+    useEffect(() => {
+        BoardClient.getTasksByListId(listId)
+            .then((data) => {
+                setTasksOnBoard(data.filter(task => task.list_id === listId).sort((a,b) => a.priorty - b.priorty));
+            });
+    }, []);
+
+    console.log(tasksOnBoard);
+
  
     const addNewTaskHandler = (newTask) => {
         const enteredTask = {
@@ -32,9 +38,15 @@ const BoardList =  ({listId, name, style}) => {
     };
 
     const refresh = useCallback(() => {
-        setTasksOnBoard(_ => {
+        setTasksOnBoard( () => {
             console.log("Refreshing: " + listId);
-            return BoardClient.getTasksByListId(listId);
+            return (
+                BoardClient.getTasksByListId()
+                    .then((data) => {
+                        const data_list = data.filter(task => task.list_id === listId).sort((a,b) => a.priorty - b.priorty);
+                        setTasksOnBoard(data_list);
+                    })
+            );
         });
     });
 
