@@ -9,9 +9,9 @@ const Board = () => {
     useEffect(() => {
         BoardClient.getBoardConfig()
             .then((data) => {
-                    console.log(data.list_config);
-                    setBoard(data.list_config);
-                });
+                console.log(data.list_config);
+                setBoard(data.list_config);
+            });
      }, []);
 
     return (

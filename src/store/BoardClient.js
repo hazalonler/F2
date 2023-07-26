@@ -1,133 +1,45 @@
 let instance;
 
 class BoardClient {
-    constructor() {
-      if (instance) {
-        throw new Error("You can only create one board instance and one tasks instance!");
-      }
-      instance = this;
-        this.boardConfig = {
-          boardName: "Hazal's Project",
-          listConfig: [
-            {
-              id: 'e1', 
-              name: "Backlog", 
-              style: {backgroundColor: "rgb(255, 204, 204)", borderRadius: "12px", width: "230px"}
-            },
-            {
-              id: 'e2', 
-              name: "To-Do", 
-              style: {backgroundColor: "rgb(255, 204, 204)", borderRadius: "12px",  width: "230px"}
-            },  
-            {
-              id: 'e3', 
-              name: "In-Progress", 
-              style: {backgroundColor: "rgb(255, 204, 204)", borderRadius: "12px",  width: "230px"}
-            }, 
-            {
-              id: 'e4', 
-              name: "Done", 
-              style: {backgroundColor: "rgb(255, 204, 204)", borderRadius: "12px",  width: "230px"}
-            }, 
-          ]
-        };
 
-        this.tasks = [
-          {
-              id: '1',
-              name: "Prepare a new board",
-              date: new Date(2023, 4, 3),
-              listId: 'e1',
-              priorty: 1000,
-              description: "",
-          },
-          { 
-              id: '2',
-              name: "Prepare a task list",
-              date: new Date(2023, 5, 6),
-              listId: 'e2',
-              priorty: 1000,
-              description: "",
-          },
-          {
-              id: '3',
-              name: "naming",
-              date: new Date(2022, 5, 6),
-              listId: 'e3',
-              priorty: 1000,
-              description: "",
-          },
-          {
-              id: '4',
-              name: "Make a to-do list for shopping",
-              date: new Date(2021, 4, 3),
-              listId: 'e3',
-              priorty: 2000,
-              description: "",
-          },
-          {
-              id: '5',
-              name: "edit",
-              date: new Date(2023, 5, 8),
-              listId: 'e2',
-              priorty: 2000,
-              description: "",
-          },
-          {
-              id: '6',
-              name: "Going to lake side",
-              date: new Date(2023, 7, 6),
-              listId: 'e3',
-              priorty: 3000,
-              description: "",
-              
-          },
-          {
-              id: '7',
-              name: "New board task created",
-              date: new Date(2019, 4, 3),
-              listId: 'e3',
-              priorty: 4000,
-              description: "",
-          },
-        ];
-
+    async getBoardConfig () {
+      const response = await fetch('http://localhost:8000/api/board/a1');
+      const data = await response.json();
+      return data;     
     }
 
-    getBoardConfig () {
-      return fetch('http://localhost:8000/api/board/a1')
-              .then(response => response.json())
-              .catch((e) => {
-                console.log("Failed to fetch board config: " + e);
-              });
+    async getTasks () {
+      const response = await fetch('http://localhost:8000/api/board/a1/tasks');
+      const data = await response.json();
+      return data;
     }
 
-    getTasks () {
-      return fetch('http://localhost:8000/api/board/a1/tasks')
-              .then(response => response.json())
-              .catch((e) => {
-                console.log("Failed to fetch tasks: " + e);
-              });
+    async getTasksByListId () {
+      const response = await fetch('http://localhost:8000/api/board/a1/tasks');
+      const data = await response.json();
+      console.log(data);
+      return data;  
     }
 
-    getTasksByListId (listId) {
-      return fetch('http://localhost:8000/api/board/a1/tasks')
-              .then(response => response.json())
-              .catch((e) => {
-                console.log("Failed to fetch tasks: " + e);
-              });
+    async pushTasks (task) {
+      const response = await fetch('http://localhost:8000/api/board/a1/tasks', {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(task)
+      });
+      const data = await response.json();
+      console.log(data);
     }
 
-    pushTasks (task) {
-      const newTasks = this.tasks.concat(task);
-      return newTasks;
-    }
-
-    updateListIdPr (task) {
-      const existingTask = this.tasks.find(t => t.id === task.id)
-      existingTask.listId = task.listId;
-      existingTask.priorty = task.priorty;
-      console.log(this.tasks);
+    async updateListIdPr (task) {
+      const response = await fetch('http://localhost:8000/api/tasks/1', {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(task)
+      });
+      const data =  response.json();
+      console.log(data);
+      return data;
     }
 
     updateTaskDescription (task) {

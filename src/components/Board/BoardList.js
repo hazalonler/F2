@@ -5,15 +5,16 @@ import ListItem from "./ListItem";
 import BoardClient from "../../store/BoardClient"
 import { useDrop } from "react-dnd";
 import TaskContext from "../../store/task-ctx";
+import Board from "./Board";
 
 const BoardList =  ({listId, name, style}) => {
 
-    let [tasksOnBoard, setTasksOnBoard] = useState([]);
+    const [tasksOnBoard, setTasksOnBoard] = useState([]);
 
     useEffect(() => {
-        BoardClient.getTasksByListId(listId)
+        BoardClient.getTasksByListId()
             .then((data) => {
-                setTasksOnBoard(data.filter(task => task.list_id === listId).sort((a,b) => a.priorty - b.priorty));
+                setTasksOnBoard(data.filter(task => task.list_id === listId).sort((a,b) => a.priority - b.priority));
             });
     }, []);
 
@@ -29,6 +30,7 @@ const BoardList =  ({listId, name, style}) => {
             description: "",
         };
         // BoardClient.pushTasks(enteredTask); new task has to be set on the backend
+        BoardClient.pushTasks(enteredTask);
 
         setTasksOnBoard(prevTasks => {
             const updatedTasks = [enteredTask, ...prevTasks]; 
@@ -38,16 +40,13 @@ const BoardList =  ({listId, name, style}) => {
     };
 
     const refresh = useCallback(() => {
-        setTasksOnBoard( () => {
-            console.log("Refreshing: " + listId);
-            return (
-                BoardClient.getTasksByListId()
-                    .then((data) => {
-                        const data_list = data.filter(task => task.list_id === listId).sort((a,b) => a.priorty - b.priorty);
-                        setTasksOnBoard(data_list);
-                    })
-            );
-        });
+        console.log("Refreshing: " + listId);
+        return (
+            BoardClient.getTasksByListId()
+                .then((data) => {
+                    setTasksOnBoard(data.filter(task => task.list_id === listId).sort((a,b) => a.priority - b.priortiy));
+                })
+        );
     });
 
     const [ {isOver}, drop] = useDrop({

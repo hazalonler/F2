@@ -14,7 +14,7 @@ const TaskForm = (props) => {
 
         const taskData = {
             name: enteredName,
-            date: null,
+            date: "",
         };
 
         props.onSaveTaskName(taskData);
