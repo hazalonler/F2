@@ -3,9 +3,9 @@ import React from "react";
 const TaskContext = React.createContext({
     id: "",
     name: "",
-    date: null,
+    date: "",
     listId: "",
-    priorty: 1000,
+    priority: 1000,
     description: "",
 });
 

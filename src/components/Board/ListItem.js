@@ -27,18 +27,19 @@ const ListItem = ({refresh}) => {
             const hoverClientY = mousePosition.y - hoveredRect.top;
 
             if (hoverClientY < hoverMiddleY) {
-                dragItem.priorty = ctx.priorty + 1
+                dragItem.priority = ctx.priority + 1
             }
     
             if (hoverClientY > hoverMiddleY) {
-                dragItem.priorty = ctx.priorty - 1
+                dragItem.priority = ctx.priority - 1
             }
 
             console.log("Empty of not?:" + ctx.name + ctx.listId);
             
-            dragItem.listId = ctx.listId;
-            BoardClient.updateListIdPr(dragItem);
-            refresh(); // item in oldugu listi refresh ediyor
+            dragItem.list_id = ctx.listId;
+            BoardClient.updateListIdPr(dragItem).then((data) => {
+                refresh(data);
+            });
         },
 
         collect: (monitor) => ({
@@ -52,9 +53,6 @@ const ListItem = ({refresh}) => {
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
         }),
-        end (item, monitor) {
-            refresh(); // dragitem in oldugu listi refresh ediyor
-        }
     }));
 
     const [show, setShow] = useState(false);

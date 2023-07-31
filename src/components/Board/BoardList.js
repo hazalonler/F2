@@ -26,45 +26,42 @@ const BoardList =  ({listId, name, style}) => {
             ...newTask,
             listId: listId,
             id: Math.random().toString(),
-            priorty: tasksOnBoard[tasksOnBoard.length-1].priorty + 1000,
+            priority: tasksOnBoard[tasksOnBoard.length-1].priority + 1000,
             description: "",
         };
-        // BoardClient.pushTasks(enteredTask); new task has to be set on the backend
+       
         BoardClient.pushTasks(enteredTask);
 
         setTasksOnBoard(prevTasks => {
             const updatedTasks = [enteredTask, ...prevTasks]; 
-            return updatedTasks.sort((a, b) => a.priorty - b.priorty);
+            return updatedTasks.sort((a, b) => a.priority - b.priority);
         });
             
     };
 
-    const refresh = useCallback(() => {
-        console.log("Refreshing: " + listId);
-        return (
-            BoardClient.getTasksByListId()
-                .then((data) => {
-                    setTasksOnBoard(data.filter(task => task.list_id === listId).sort((a,b) => a.priority - b.priortiy));
-                })
-        );
-    });
+    const refresh = (data) => {
+        setTasksOnBoard(data.filter(task => task.list_id === listId).sort((a,b) => a.priority - b.priority));
+    };
+
 
     const [ {isOver}, drop] = useDrop({
         accept: "ITEM",
         canDrop: (dragItem, monitor) => {
             console.log("listId of Board : " + JSON.stringify(listId));
-            dragItem.listId = listId;
-            BoardClient.updateListIdPr(dragItem);
-            refresh();
+            dragItem.list_id = listId;
+            BoardClient.updateListIdPr(dragItem).then((data) => {
+                refresh(data);
+            })
         },
 
         drop: (dragItem, monitor) => {
             console.log("listId of Board : " + JSON.stringify(listId));
-            dragItem.listId = listId;
-            BoardClient.updateListIdPr(dragItem);
-            refresh();
-            
+            dragItem.list_id = listId;
+            BoardClient.updateListIdPr(dragItem).then((data) => {
+                refresh(data);;
+            })
         },
+
         collect: (monitor) => ({
             isOver: !!monitor.isOver(),
         }),
@@ -81,8 +78,8 @@ const BoardList =  ({listId, name, style}) => {
                                 id: task.id,
                                 name: task.name,
                                 date: task.date,
-                                listId: task.listId,
-                                priorty: task.priorty,
+                                listId: task.list_id,
+                                priority: task.priority,
                                 description: task.description,
                             }}
                         >

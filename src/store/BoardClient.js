@@ -37,8 +37,7 @@ class BoardClient {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(task)
       });
-      const data =  response.json();
-      console.log(data);
+      const data = await response.json();
       return data;
     }
 
