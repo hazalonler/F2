@@ -31,7 +31,7 @@ class BoardClient {
       console.log(data);
     }
 
-    async updateListIdPr (task) {
+    async updateListData (task) {
       const response = await fetch('http://localhost:8000/api/tasks/1', {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
@@ -40,12 +40,6 @@ class BoardClient {
       const data = await response.json();
       console.log(data);
       return data
-    }
-
-    updateTaskDescription (task) {
-      const existingTask = this.tasks.find(t => t.id === task.id)
-      existingTask.description = task.description;
-      console.log(this.tasks);
     }
 };
 

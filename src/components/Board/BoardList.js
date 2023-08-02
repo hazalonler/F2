@@ -53,7 +53,7 @@ const BoardList =  ({listId, name, style}) => {
         canDrop: (dragItem, monitor) => {
             console.log("listId of Board : " + JSON.stringify(listId));
             dragItem.list_id = listId;
-            BoardClient.updateListIdPr(dragItem).then(() => {
+            BoardClient.updateListData(dragItem).then(() => {
                 refresh();
             })
         },
@@ -61,7 +61,7 @@ const BoardList =  ({listId, name, style}) => {
         drop: (dragItem, monitor) => {
             console.log("listId of Board : " + JSON.stringify(listId));
             dragItem.list_id = listId;
-            BoardClient.updateListIdPr(dragItem).then(() => {
+            BoardClient.updateListData(dragItem).then(() => {
                 refresh();
             })
         },

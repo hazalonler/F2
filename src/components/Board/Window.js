@@ -39,7 +39,7 @@ const Window = ({show, onClose}) => {
             description: input
         }
 
-        BoardClient.updateTaskDescription(taskData);
+        BoardClient.updateListData(taskData);
         setOldInput(input);
         setTyping(false);
     };
