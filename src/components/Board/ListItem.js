@@ -37,8 +37,8 @@ const ListItem = ({refresh}) => {
             console.log("Empty of not?:" + ctx.name + ctx.listId);
             
             dragItem.list_id = ctx.listId;
-            BoardClient.updateListIdPr(dragItem).then((data) => {
-                refresh(data);
+            BoardClient.updateListIdPr(dragItem).then(() => {
+                refresh();
             });
         },
 
@@ -53,6 +53,9 @@ const ListItem = ({refresh}) => {
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
         }),
+        end: (item, monitor) => {
+            refresh();
+        }
     }));
 
     const [show, setShow] = useState(false);

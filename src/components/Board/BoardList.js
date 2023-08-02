@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useState,useContext } from "react";
 
 import NewTask from "../NewTask/NewTask";
 import ListItem from "./ListItem";
@@ -6,6 +6,7 @@ import BoardClient from "../../store/BoardClient"
 import { useDrop } from "react-dnd";
 import TaskContext from "../../store/task-ctx";
 import Board from "./Board";
+import BoardContext from "../../store/board-ctx";
 
 const BoardList =  ({listId, name, style}) => {
 
@@ -16,7 +17,7 @@ const BoardList =  ({listId, name, style}) => {
             .then((data) => {
                 setTasksOnBoard(data.filter(task => task.list_id === listId).sort((a,b) => a.priority - b.priority));
             });
-    }, []);
+    }, [listId]);
 
     console.log(tasksOnBoard);
 
@@ -39,8 +40,11 @@ const BoardList =  ({listId, name, style}) => {
             
     };
 
-    const refresh = (data) => {
-        setTasksOnBoard(data.filter(task => task.list_id === listId).sort((a,b) => a.priority - b.priority));
+    const refresh = () => {
+        BoardClient.getTasksByListId()
+            .then((data) => {
+                setTasksOnBoard(data.filter(task => task.list_id === listId).sort((a,b) => a.priority - b.priority));
+            });
     };
 
 
@@ -49,16 +53,16 @@ const BoardList =  ({listId, name, style}) => {
         canDrop: (dragItem, monitor) => {
             console.log("listId of Board : " + JSON.stringify(listId));
             dragItem.list_id = listId;
-            BoardClient.updateListIdPr(dragItem).then((data) => {
-                refresh(data);
+            BoardClient.updateListIdPr(dragItem).then(() => {
+                refresh();
             })
         },
 
         drop: (dragItem, monitor) => {
             console.log("listId of Board : " + JSON.stringify(listId));
             dragItem.list_id = listId;
-            BoardClient.updateListIdPr(dragItem).then((data) => {
-                refresh(data);;
+            BoardClient.updateListIdPr(dragItem).then(() => {
+                refresh();
             })
         },
 

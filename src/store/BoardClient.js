@@ -38,7 +38,8 @@ class BoardClient {
         body: JSON.stringify(task)
       });
       const data = await response.json();
-      return data;
+      console.log(data);
+      return data
     }
 
     updateTaskDescription (task) {
