@@ -5,6 +5,7 @@ import { RxCross1 } from "react-icons/rx";
 import { IoCardOutline } from "react-icons/io5";
 import { MdNotes } from "react-icons/md";
 import TaskContext from "../../store/task-ctx";
+import BoardContext from "../../store/board-ctx";
 
 
 Modal.setAppElement("#root");
@@ -12,15 +13,13 @@ Modal.setAppElement("#root");
 const Window = ({show, onClose}) => {
 
     const ctx = useContext(TaskContext);
+    const boardCtx = useContext(BoardContext);
 
     const [taskList, setTaskList] = useState([]);
 
     useEffect(() => {
-        BoardClient.getBoardConfig()
-            .then((data) => {
-                    const task_list = data.list_config.filter(list => list.id === ctx.listId); 
-                    setTaskList(task_list);
-                });
+        const task_list = boardCtx.listConfig.filter(list => list.id === ctx.listId); 
+        setTaskList(task_list);
      }, []);
     
     const [input, setInput] = useState(ctx.description);

@@ -10,16 +10,26 @@ import BoardContext from "../../store/board-ctx";
 
 const BoardList =  ({listId, name, style}) => {
 
+    const boardCtx = useContext(BoardContext);
+
     const [tasksOnBoard, setTasksOnBoard] = useState([]);
 
     useEffect(() => {
-        BoardClient.getTasksByListId()
+        BoardClient.getTasksByListId(boardCtx.boardId, listId)
             .then((data) => {
-                setTasksOnBoard(data.filter(task => task.list_id === listId).sort((a,b) => a.priority - b.priority));
+                setTasksOnBoard(data);
             });
-    }, [listId]);
+    }, []);
 
     console.log(tasksOnBoard);
+
+    let priority = 0;
+
+    if (tasksOnBoard.length !== 0) {
+        priority = tasksOnBoard[tasksOnBoard.length-1].priority + 1000;
+    } else {
+        priority = 1000;
+    }
 
  
     const addNewTaskHandler = (newTask) => {
@@ -27,11 +37,11 @@ const BoardList =  ({listId, name, style}) => {
             ...newTask,
             listId: listId,
             id: Math.random().toString(),
-            priority: tasksOnBoard[tasksOnBoard.length-1].priority + 1000,
+            priority: priority,
             description: "",
         };
        
-        BoardClient.pushTasks(enteredTask);
+        BoardClient.createTasks(boardCtx.boardId, enteredTask);
 
         setTasksOnBoard(prevTasks => {
             const updatedTasks = [enteredTask, ...prevTasks]; 
@@ -41,7 +51,7 @@ const BoardList =  ({listId, name, style}) => {
     };
 
     const refresh = () => {
-        BoardClient.getTasksByListId()
+        BoardClient.getTasksByListId(boardCtx.boardId, listId)
             .then((data) => {
                 setTasksOnBoard(data.filter(task => task.list_id === listId).sort((a,b) => a.priority - b.priority));
             });

@@ -16,13 +16,13 @@ const App = () => {
 
   useEffect(() => {
       BoardClient.getBoardConfig()
-          .then((data) => {
-              setBoard({
-                boardId: data.board_id,
-                boardName: data.board_name,
-                listConfig: data.list_config
-              });
-          });
+          .then((data) => {data.map((firstData) => {
+            setBoard({
+              boardId: firstData.board_id,
+              boardName: firstData.board_name,
+              listConfig: firstData.list_config
+            });
+          })});
    }, []);
 
    console.log(board);
@@ -31,15 +31,14 @@ const App = () => {
 
   return (
       <DndProvider backend={HTML5Backend}>
-        <Header />
             <BoardContext.Provider 
               value={board}
             > 
+              <Header />
               <Board 
                 key={board.boardId}
               /> 
             </BoardContext.Provider>
-      
       </DndProvider>
   );
 }
