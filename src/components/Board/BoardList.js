@@ -20,9 +20,7 @@ const BoardList =  ({listId, name, style}) => {
                 setTasksOnBoard(data);
             });
     }, []);
-
-    console.log(tasksOnBoard);
-
+    
     let priority = 0;
 
     if (tasksOnBoard.length !== 0) {
@@ -36,32 +34,34 @@ const BoardList =  ({listId, name, style}) => {
         const enteredTask = {
             ...newTask,
             listId: listId,
-            id: Math.random().toString(),
             priority: priority,
             description: "",
         };
        
-        BoardClient.createTasks(boardCtx.boardId, enteredTask);
-
-        setTasksOnBoard(prevTasks => {
-            const updatedTasks = [enteredTask, ...prevTasks]; 
-            return updatedTasks.sort((a, b) => a.priority - b.priority);
+        BoardClient.createTasks(boardCtx.boardId, enteredTask).then(() => {
+            refresh();
         });
-            
     };
 
     const refresh = () => {
         BoardClient.getTasksByListId(boardCtx.boardId, listId)
             .then((data) => {
-                setTasksOnBoard(data.filter(task => task.list_id === listId).sort((a,b) => a.priority - b.priority));
+                setTasksOnBoard(data);
             });
     };
+
+    let list_priority = []
+
+    tasksOnBoard.map((task) => {
+        list_priority.push( JSON.stringify(task.name) + ":" + JSON.stringify(task.priority));
+    })
+
+    console.log(list_priority);
 
 
     const [ {isOver}, drop] = useDrop({
         accept: "ITEM",
         canDrop: (dragItem, monitor) => {
-            console.log("listId of Board : " + JSON.stringify(listId));
             dragItem.list_id = listId;
             BoardClient.updateListData(dragItem).then(() => {
                 refresh();
@@ -69,7 +69,6 @@ const BoardList =  ({listId, name, style}) => {
         },
 
         drop: (dragItem, monitor) => {
-            console.log("listId of Board : " + JSON.stringify(listId));
             dragItem.list_id = listId;
             BoardClient.updateListData(dragItem).then(() => {
                 refresh();

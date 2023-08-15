@@ -5,7 +5,6 @@ import BoardContext from "../../store/board-ctx";
 const Header = () => {
 
     const boardCtx = useContext(BoardContext);
-    console.log(boardCtx);
 
     return (
         <div className="container-fluid p-3"

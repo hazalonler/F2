@@ -30,7 +30,7 @@ const ListItem = ({refresh}) => {
                 dragItem.priority = ctx.priority + 1
             }
     
-            if (hoverClientY > hoverMiddleY) {
+            if (hoverClientY > hoverMiddleY ) {
                 dragItem.priority = ctx.priority - 1
             }
 

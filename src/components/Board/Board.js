@@ -7,8 +7,6 @@ const Board = () => {
 
     const boardCtx = useContext(BoardContext);
 
-    console.log(boardCtx.listConfig);
-
     return (
         <div className="d-flex flex-row" style={{width: "1000px"}}>
             {boardCtx.listConfig.map((list) => {

@@ -30,7 +30,7 @@ class BoardClient {
         body: JSON.stringify(task)
       });
       const data = await response.json();
-      console.log(data);
+      return data;
     }
 
     async updateListData (task) {
@@ -40,7 +40,6 @@ class BoardClient {
         body: JSON.stringify(task)
       });
       const data = await response.json();
-      console.log(data);
       return data
     }
 };
