@@ -5,7 +5,6 @@ import ListItem from "./ListItem";
 import BoardClient from "../../store/BoardClient"
 import { useDrop } from "react-dnd";
 import TaskContext from "../../store/task-ctx";
-import Board from "./Board";
 import BoardContext from "../../store/board-ctx";
 
 const BoardList =  ({listId, name, style}) => {
@@ -62,14 +61,14 @@ const BoardList =  ({listId, name, style}) => {
     const [ {isOver}, drop] = useDrop({
         accept: "ITEM",
         canDrop: (dragItem, monitor) => {
-            dragItem.list_id = listId;
+            dragItem.listId = listId;
             BoardClient.updateListData(dragItem).then(() => {
                 refresh();
             })
         },
 
         drop: (dragItem, monitor) => {
-            dragItem.list_id = listId;
+            dragItem.listId = listId;
             BoardClient.updateListData(dragItem).then(() => {
                 refresh();
             })
@@ -88,10 +87,12 @@ const BoardList =  ({listId, name, style}) => {
                     {tasksOnBoard.map((task) => (
                         <TaskContext.Provider 
                             value={{
-                                id: task.id,
+                                id: task._id,
                                 name: task.name,
-                                date: task.date,
-                                listId: task.list_id,
+                                creationTs: task.creationTs,
+                                updatedTs: task.updatedTs,
+                                listId: task.listId,
+                                boardId: task.boardId,
                                 priority: task.priority,
                                 description: task.description,
                             }}

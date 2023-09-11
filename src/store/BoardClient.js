@@ -3,24 +3,15 @@ let instance;
 class BoardClient {
 
     async getBoardConfig () {
-
       const response = await fetch('http://localhost:8000/api/board');
-      const data = await response.json();
-      return data;     
+
+      return await response.json();
     }
-    /*
-    async getTasks (boardId) {
-      const response = await fetch(`http://localhost:8000/api/board/${boardId}/tasks`);
-      const data = await response.json();
-      return data;
-    }
-    */
 
     async getTasksByListId (boardId, listId) {
-
       const response = await fetch(`http://localhost:8000/api/board/${boardId}/tasks/` + listId);
-      const data = await response.json();
-      return data;  
+
+      return await response.json();
     }
 
     async createTasks (boardId, task) {
@@ -29,8 +20,8 @@ class BoardClient {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(task)
       });
-      const data = await response.json();
-      return data;
+
+      return await response.json();
     }
 
     async updateListData (task) {
@@ -39,8 +30,8 @@ class BoardClient {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(task)
       });
-      const data = await response.json();
-      return data
+      
+      return await response.json();
     }
 };
 

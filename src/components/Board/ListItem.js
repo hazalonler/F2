@@ -36,7 +36,7 @@ const ListItem = ({refresh}) => {
 
             console.log("Empty of not?:" + ctx.name + ctx.listId);
             
-            dragItem.list_id = ctx.listId;
+            dragItem.listId = ctx.listId;
             BoardClient.updateListData(dragItem).then(() => {
                 refresh();
             });
