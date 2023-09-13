@@ -6,9 +6,8 @@ import { IoCardOutline } from "react-icons/io5";
 import { MdNotes } from "react-icons/md";
 import TaskContext from "../../store/task-ctx";
 import BoardContext from "../../store/board-ctx";
+import Timer from "../PomodoroTimer/Timer";
 
-
-Modal.setAppElement("#root");
 
 const Window = ({show, onClose}) => {
 
@@ -51,6 +50,12 @@ const Window = ({show, onClose}) => {
     const clickHandler = () => {
         setTyping(true);
     };
+
+    const [showTimer, setShowTimer] = useState(false);
+
+    const openTimer = () => setShowTimer(true);
+
+    const closeTimer = () => setShowTimer(false);
     
     const rowsNum = typing ? 8 : 3;
 
@@ -73,6 +78,7 @@ const Window = ({show, onClose}) => {
                     <div className="modal-header p-0 align-top" style={{borderColor: "rgb(255, 204, 204)"}}>
                         <IoCardOutline className="mr-2 mt-2" size="16px"/>
                         <h4 className="modal-title" style={{flex: "1 90%"}}>{ctx.name}</h4>
+                        <button type="button" className="btn-close btn-warning mt-2 rounded mr-2 ml-3" onClick={openTimer}>POMODORO</button>
                         <RxCross1 
                             type="button" 
                             className="btn-close mt-2 rounded"
@@ -83,7 +89,7 @@ const Window = ({show, onClose}) => {
                         >
                         </RxCross1>
                     </div>
-                    <p className="text-start ml-4" style={{fontSize: "14px"}}>in list {taskList.name}</p>
+                    <p className="text-start ml-4" style={{fontSize: "14px"}}>in {taskList.listName}</p>
                 </div>
                 <div className="model-dialog-scrollable">
                     <div className="modal-header p-0">
@@ -122,6 +128,10 @@ const Window = ({show, onClose}) => {
                     </div>
                 </div>
             </div>
+            <Timer
+                show={showTimer}
+                onClose={closeTimer}
+            ></Timer>
         </Modal>
     );
 };

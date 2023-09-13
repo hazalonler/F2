@@ -1,8 +1,6 @@
 import BoardList from "./BoardList";
 import { Fragment, useContext } from "react";
 import BoardContext from "../../store/board-ctx";
-import { CircularProgressbar,buildStyles } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
 
 const Board = () => {
 
@@ -21,9 +19,7 @@ const Board = () => {
                         ></BoardList>
                     )
                 })}
-                
             </div>
-            <CircularProgressbar value={25} text={`25%`} />
         </Fragment>
     );
 };

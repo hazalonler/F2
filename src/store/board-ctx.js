@@ -5,7 +5,7 @@ const BoardContext = React.createContext({
     boardName: "",
     listConfig: [{
         id: "",
-        name: "",
+        listName: "",
         style: {}
     }]
 });
