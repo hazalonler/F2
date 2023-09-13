@@ -1,21 +1,23 @@
 let instance;
 
+const urlCommon = "http://localhost:8000/api"
+
 class BoardClient {
 
     async getBoardConfig () {
-      const response = await fetch('http://localhost:8000/api/board');
+      const response = await fetch(`${urlCommon}/board`);
 
       return await response.json();
     }
 
     async getTasksByListId (boardId, listId) {
-      const response = await fetch(`http://localhost:8000/api/board/${boardId}/tasks/` + listId);
+      const response = await fetch(`${urlCommon}/board/${boardId}/tasks/` + listId);
 
       return await response.json();
     }
 
     async createTasks (boardId, task) {
-      const response = await fetch(`http://localhost:8000/api/board/${boardId}/tasks/` + task.listId, {
+      const response = await fetch(`${urlCommon}/board/${boardId}/tasks/` + task.listId, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(task)
@@ -25,7 +27,7 @@ class BoardClient {
     }
 
     async updateListData (task) {
-      const response = await fetch('http://localhost:8000/api/tasks/' + task.id, {
+      const response = await fetch(`${urlCommon}/tasks/` + task.id, {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(task)
