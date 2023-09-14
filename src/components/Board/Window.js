@@ -82,6 +82,7 @@ const Window = ({show, onClose}) => {
                         <RxCross1 
                             type="button" 
                             className="btn-close mt-2 rounded"
+                            style={{width: "40px"}}
                             size="20px" 
                             onMouseOver={({target}) => target.style.backgroundColor="rgb(255, 186, 186)"} 
                             onMouseOut={({target}) => target.style.backgroundColor="rgb(255, 204, 204)"} 
