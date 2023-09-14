@@ -78,7 +78,7 @@ const Window = ({show, onClose}) => {
                     <div className="modal-header p-0 align-top" style={{borderColor: "rgb(255, 204, 204)"}}>
                         <IoCardOutline className="mr-2 mt-2" size="16px"/>
                         <h4 className="modal-title" style={{flex: "1 90%"}}>{ctx.name}</h4>
-                        <button type="button" className="btn-close btn-warning mt-2 rounded mr-2 ml-3" onClick={openTimer}>POMODORO</button>
+                        <button type="button" className="btn-close btn-warning mt-1 rounded mr-4 ml-3" onClick={openTimer}>POMODORO</button>
                         <RxCross1 
                             type="button" 
                             className="btn-close mt-2 rounded"
