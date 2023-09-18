@@ -6,7 +6,8 @@ import { IoCardOutline } from "react-icons/io5";
 import { MdNotes } from "react-icons/md";
 import TaskContext from "../../store/task-ctx";
 import BoardContext from "../../store/board-ctx";
-import Timer from "../PomodoroTimer/Timer";
+import Timer from "../../../outOfUsing/Timer";
+import BasicTimer from "../PomodoroTimer/BasicTimer";
 
 
 const Window = ({show, onClose}) => {
@@ -129,10 +130,10 @@ const Window = ({show, onClose}) => {
                     </div>
                 </div>
             </div>
-            <Timer
+            <BasicTimer
                 show={showTimer}
                 onClose={closeTimer}
-            ></Timer>
+            ></BasicTimer>
         </Modal>
     );
 };
