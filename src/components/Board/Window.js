@@ -6,7 +6,6 @@ import { IoCardOutline } from "react-icons/io5";
 import { MdNotes } from "react-icons/md";
 import TaskContext from "../../store/task-ctx";
 import BoardContext from "../../store/board-ctx";
-import Timer from "../../../outOfUsing/Timer";
 import BasicTimer from "../PomodoroTimer/BasicTimer";
 
 

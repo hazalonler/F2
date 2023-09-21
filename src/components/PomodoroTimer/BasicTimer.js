@@ -2,14 +2,14 @@ import React from "react";
 import Modal from "react-modal";
 import { useEffect } from "react";
 import { useState } from "react";
-import ClosePomodoro from "../../../outOfUsing/ClosePomodoro";
+import ClosePomodoro from "./ClosePomodoro";
 
 const BasicTimer = ( {show, onClose} ) => {
     Modal.setAppElement("#root");
 
-    const [minutes, setMinutes] = useState(2);
+    const [minutes, setMinutes] = useState(1);
     const [seconds, setSeconds] = useState(0);
-    const [displayMessage, setDisplayMessage] = useState(false);
+    const [displayMessage, setDisplayMessage] = useState(true);
 
     useEffect(() => {
         let interval = setInterval(() => {
@@ -44,7 +44,7 @@ const BasicTimer = ( {show, onClose} ) => {
             style={{content: {borderRadius: "15px", backgroundColor: "rgb(255, 204, 204)", width: "600px"}}}   
         >
             <div>
-                <div className='d-flex justify-content-end'>
+                <div className='d-flex justify-content-end pb-3'>
                             <ClosePomodoro
                                 className="mt-2"
                                 style={{ backgroundColor: "transparent", color: "rgba(255, 255, 255, 0.8", border:0, width: "40px"}} 
@@ -53,12 +53,12 @@ const BasicTimer = ( {show, onClose} ) => {
                                 onMouseOut={({target}) => target.style.backgroundColor="rgb(255, 204, 204)"} 
                             />
                 </div>
-                <div className='d-flex justify-content-center'>    
+                <div className='d-flex align-items-center flex-column'>    
                     <div>
-                        <div className="d-flex align-items-center">
-                            {displayMessage && <p>Break Time! New Session starts in:</p>}
+                        <div className="display-5 d-flex justify-content-center">
+                            {displayMessage ? <p>Break Time! New Session starts in:</p> : <p>Pomodoro Timer:</p>}
                         </div>
-                        <div className='d-flex align-items-center'>{timerMinutes}:{timerSeconds}</div>
+                        <div className='display-3 d-flex justify-content-center'>{timerMinutes}:{timerSeconds}</div>
                     </div>
                 </div>
             </div>
