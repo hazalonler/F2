@@ -6,7 +6,8 @@ import { IoCardOutline } from "react-icons/io5";
 import { MdNotes } from "react-icons/md";
 import TaskContext from "../../store/task-ctx";
 import BoardContext from "../../store/board-ctx";
-import BasicTimer from "../PomodoroTimer/BasicTimer";
+import Break from "../PomodoroTimer/Break";
+import Session from "../PomodoroTimer/Session";
 
 
 const Window = ({show, onClose}) => {
@@ -19,7 +20,7 @@ const Window = ({show, onClose}) => {
     useEffect(() => {
         const task_list = boardCtx.listConfig.filter(list => list.id === ctx.listId); 
         setTaskList(task_list);
-     }, []);
+    }, []);
     
     const [input, setInput] = useState(ctx.description);
     const [oldInput, setOldInput] = useState("");
@@ -50,12 +51,6 @@ const Window = ({show, onClose}) => {
     const clickHandler = () => {
         setTyping(true);
     };
-
-    const [showTimer, setShowTimer] = useState(false);
-
-    const openTimer = () => setShowTimer(true);
-
-    const closeTimer = () => setShowTimer(false);
     
     const rowsNum = typing ? 8 : 3;
 
@@ -67,6 +62,8 @@ const Window = ({show, onClose}) => {
         description = input;
     }
 
+    console.log(boardCtx);
+
     return (
         <Modal
             isOpen={show}
@@ -74,11 +71,10 @@ const Window = ({show, onClose}) => {
             style={{content: {borderRadius: "15px", backgroundColor: "rgb(255, 204, 204)", width: "600px"}}}
         >
             <div >
-                <div className="modal-content mb-5" style={{borderColor: "rgb(255, 204, 204)", backgroundColor: "rgb(255, 204, 204)"}}>
+                <div className="modal-content pb-5" style={{borderColor: "rgb(255, 204, 204)", backgroundColor: "rgb(255, 204, 204)"}}>
                     <div className="modal-header p-0 align-top" style={{borderColor: "rgb(255, 204, 204)"}}>
                         <IoCardOutline className="mr-2 mt-2" size="16px"/>
                         <h4 className="modal-title" style={{flex: "1 90%"}}>{ctx.name}</h4>
-                        <button type="button" className="btn-close btn-warning mt-1 rounded mr-4 ml-3" onClick={openTimer}>POMODORO</button>
                         <RxCross1 
                             type="button" 
                             className="btn-close mt-2 rounded"
@@ -90,9 +86,8 @@ const Window = ({show, onClose}) => {
                         >
                         </RxCross1>
                     </div>
-                    <p className="text-start ml-4" style={{fontSize: "14px"}}>in {taskList.listName}</p>
                 </div>
-                <div className="model-dialog-scrollable">
+                <div className="model-dialog-scrollable pt-5">
                     <div className="modal-header p-0">
                         <MdNotes className="mr-2 mt-1" size="16px"/>
                         <h5 className="modal-title" style={{flex: "1 90%"}}>Description </h5>
@@ -129,10 +124,10 @@ const Window = ({show, onClose}) => {
                     </div>
                 </div>
             </div>
-            <BasicTimer
-                show={showTimer}
-                onClose={closeTimer}
-            ></BasicTimer>
+            <button>
+                <Break></Break>
+                <Session></Session>
+            </button>
         </Modal>
     );
 };
