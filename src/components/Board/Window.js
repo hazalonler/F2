@@ -1,30 +1,24 @@
 import Modal from "react-modal";
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import BoardClient from "../../store/BoardClient";
 import { RxCross1 } from "react-icons/rx";
 import { IoCardOutline } from "react-icons/io5";
 import { MdNotes } from "react-icons/md";
 import TaskContext from "../../store/task-ctx";
-import BoardContext from "../../store/board-ctx";
 import Break from "../PomodoroTimer/Break";
 import Session from "../PomodoroTimer/Session";
+import TimeLeft from "../PomodoroTimer/TimeLeft";
 
 
 const Window = ({show, onClose}) => {
 
     const ctx = useContext(TaskContext);
-    const boardCtx = useContext(BoardContext);
-
-    const [taskList, setTaskList] = useState([]);
-
-    useEffect(() => {
-        const task_list = boardCtx.listConfig.filter(list => list.id === ctx.listId); 
-        setTaskList(task_list);
-    }, []);
     
     const [input, setInput] = useState(ctx.description);
     const [oldInput, setOldInput] = useState("");
     const [typing, setTyping] = useState(false);
+    const [sessionLength, setSessionLength] = useState(60 * 25);
+    const [breakLength, setBreakLength] = useState(300);
 
     const inputChangeHandler = (event) => {
         setInput(event.target.value);
@@ -62,7 +56,33 @@ const Window = ({show, onClose}) => {
         description = input;
     }
 
-    console.log(boardCtx);
+    const decrementSessionLengthByOneMinute = () => {
+        const newSessionLength = sessionLength - 60;
+        
+        if (newSessionLength < 0) {
+            setSessionLength(0);
+        } else {
+            setSessionLength(newSessionLength);
+        }
+    };
+
+    const incrementSessionLengthByOneMinute = () => {
+        setSessionLength(sessionLength + 60);
+    };
+
+    const decrementBreakLengthByOneMinute = () => {
+        const newBreakLength = breakLength - 60;
+        
+        if (newBreakLength < 0) {
+            setBreakLength(0);
+        } else {
+            setBreakLength(newBreakLength);
+        }
+    };
+
+    const incrementBreakLengthByOneMinute = () => {
+        setBreakLength(breakLength + 60);
+    };
 
     return (
         <Modal
@@ -87,7 +107,7 @@ const Window = ({show, onClose}) => {
                         </RxCross1>
                     </div>
                 </div>
-                <div className="model-dialog-scrollable pt-5">
+                <div className="model-dialog-scrollable pt-5 pb-5">
                     <div className="modal-header p-0">
                         <MdNotes className="mr-2 mt-1" size="16px"/>
                         <h5 className="modal-title" style={{flex: "1 90%"}}>Description </h5>
@@ -123,11 +143,20 @@ const Window = ({show, onClose}) => {
                     }
                     </div>
                 </div>
+                <div className="d-flex justify-content-center pt-5">
+                    <Break
+                        breakLength={breakLength}
+                        decrementBreakLengthByOneMinute={decrementBreakLengthByOneMinute}
+                        incrementBreakLengthByOneMinute={incrementBreakLengthByOneMinute}    
+                    ></Break>
+                    <TimeLeft sessionLength={sessionLength}></TimeLeft>
+                    <Session 
+                        sessionLength={sessionLength} 
+                        decrementSessionLengthByOneMinute={decrementSessionLengthByOneMinute}
+                        incrementSessionLengthByOneMinute={incrementSessionLengthByOneMinute}
+                    ></Session>
+                </div>
             </div>
-            <button>
-                <Break></Break>
-                <Session></Session>
-            </button>
         </Modal>
     );
 };
