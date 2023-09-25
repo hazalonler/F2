@@ -149,7 +149,7 @@ const Window = ({show, onClose}) => {
                         decrementBreakLengthByOneMinute={decrementBreakLengthByOneMinute}
                         incrementBreakLengthByOneMinute={incrementBreakLengthByOneMinute}    
                     ></Break>
-                    <TimeLeft sessionLength={sessionLength}></TimeLeft>
+                    <TimeLeft sessionLength={sessionLength} breakLength={breakLength}></TimeLeft>
                     <Session 
                         sessionLength={sessionLength} 
                         decrementSessionLengthByOneMinute={decrementSessionLengthByOneMinute}
