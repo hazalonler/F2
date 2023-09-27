@@ -143,18 +143,20 @@ const Window = ({show, onClose}) => {
                     }
                     </div>
                 </div>
-                <div className="d-flex justify-content-center pt-5">
-                    <Break
-                        breakLength={breakLength}
-                        decrementBreakLengthByOneMinute={decrementBreakLengthByOneMinute}
-                        incrementBreakLengthByOneMinute={incrementBreakLengthByOneMinute}    
-                    ></Break>
+                <div className="d-flex flex-column justify-content-end" style={{marginTop: "300px"}}>
                     <TimeLeft sessionLength={sessionLength} breakLength={breakLength}></TimeLeft>
-                    <Session 
-                        sessionLength={sessionLength} 
-                        decrementSessionLengthByOneMinute={decrementSessionLengthByOneMinute}
-                        incrementSessionLengthByOneMinute={incrementSessionLengthByOneMinute}
-                    ></Session>
+                    <div className="d-flex flex-row justify-content-center">
+                        <Break
+                            breakLength={breakLength}
+                            decrementBreakLengthByOneMinute={decrementBreakLengthByOneMinute}
+                            incrementBreakLengthByOneMinute={incrementBreakLengthByOneMinute}    
+                        ></Break>
+                        <Session 
+                            sessionLength={sessionLength} 
+                            decrementSessionLengthByOneMinute={decrementSessionLengthByOneMinute}
+                            incrementSessionLengthByOneMinute={incrementSessionLengthByOneMinute}
+                        ></Session>
+                    </div>
                 </div>
             </div>
         </Modal>

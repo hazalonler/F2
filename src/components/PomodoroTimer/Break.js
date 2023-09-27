@@ -7,11 +7,11 @@ const Break = (props) => {
 
     return (
         <div className="d-flex flex-column align-items-center pr-5">
-            <p id="break-label">Break</p>
-            <p id="break-length">{breakLengthInMinutes}</p>
+            <p className="mb-2" id="break-label">Break</p>
+            <p className="mb-2" id="break-length">{breakLengthInMinutes}</p>
             <div>
-                <button id="break-decrement" onClick={props.decrementBreakLengthByOneMinute}>-</button>
-                <button id="break-increment" onClick={props.incrementBreakLengthByOneMinute}>+</button>
+                <button className="btn btn-outline-info btn-sm" id="break-decrement" onClick={props.decrementBreakLengthByOneMinute}>-</button>
+                <button className="btn btn-outline-info btn-sm" id="break-increment" onClick={props.incrementBreakLengthByOneMinute}>+</button>
             </div>
             
         </div>

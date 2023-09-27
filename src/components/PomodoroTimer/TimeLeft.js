@@ -8,7 +8,7 @@ momentDurationFormatSetup(moment);
 
 const TimeLeft = ({sessionLength, breakLength}) => {
 
-    const [currentSessionType, setCurrentSessionType] = useState("Session");
+    const [currentSessionType, setCurrentSessionType] = useState("Session"); // Session or Break
     const [intervalId, setIntervalId] = useState(null);
     const [timeLeft, setTimeLeft] = useState(sessionLength);
 
@@ -35,8 +35,20 @@ const TimeLeft = ({sessionLength, breakLength}) => {
                     const newTimeLeft = prevTimeLeft - 1;
                     if (newTimeLeft >= 0) {
                         return prevTimeLeft - 1 ;
-                    } else {
-                        return prevTimeLeft;
+                    }
+                    // if session:
+                    if (currentSessionType === "Session") {
+                        // switch to break
+                        setCurrentSessionType("Break");
+                        // setTimeLeft to breakLength
+                        setTimeLeft(breakLength);
+                    }
+                    // if break:
+                    else if (currentSessionType === "Break") {
+                        // switch to session
+                        setCurrentSessionType("Session");
+                        // setTimeLeft to sessionLength
+                        setTimeLeft(sessionLength);
                     }
                 });
             }, 100);
@@ -46,9 +58,9 @@ const TimeLeft = ({sessionLength, breakLength}) => {
 
     const formattedTimeLeft = moment.duration(timeLeft, 's').format('mm:ss', { trim: false });
     return (
-        <div className="d-flex flex-column align-items-center pr-5">
+        <div className="d-flex flex-column align-items-center">
             {formattedTimeLeft}
-            <button onClick={handleStartStopClick}>{isStarted? "Stop" : "Start"}</button>
+            <button className="btn btn-info" onClick={handleStartStopClick}>{isStarted? "Stop" : "Start"}</button>
         </div>
     );
 };

@@ -7,11 +7,11 @@ const Session = (props) => {
 
     return (
         <div className="d-flex flex-column align-items-center">
-            <p id="session-label">Session</p>
-            <p id="session-length">{sessionLengthInMinutes}</p>
+            <p className="mb-2" id="session-label">Session</p>
+            <p className="mb-2" id="session-length">{sessionLengthInMinutes}</p>
             <div>
-                <button id="session-decrement" onClick={props.decrementSessionLengthByOneMinute}>-</button>
-                <button id="session-increment" onClick={props.incrementSessionLengthByOneMinute}>+</button>
+                <button className="btn btn-outline-info btn-sm" id="session-decrement" onClick={props.decrementSessionLengthByOneMinute}>-</button>
+                <button className="btn btn-outline-info btn-sm" id="session-increment" onClick={props.incrementSessionLengthByOneMinute}>+</button>
             </div>
             
         </div>
