@@ -1,17 +1,20 @@
 import React from "react";
 import moment from "moment";
+import TimeContext from "../../store/time-ctx";
+import { useContext } from "react";
 
-const Break = (props) => {
+const Break = ({decrementBreakLengthByOneMinute, incrementBreakLengthByOneMinute}) => {
 
-    const breakLengthInMinutes = moment.duration(props.breakLength, 's').minutes()
+    const timeCtx = useContext(TimeContext);
+    const breakLengthInMinutes = moment.duration(timeCtx.breakLength, 's').minutes()
 
     return (
-        <div className="d-flex flex-column align-items-center pr-5">
-            <p className="mb-2" id="break-label">Break</p>
-            <p className="mb-2" id="break-length">{breakLengthInMinutes}</p>
+        <div className="d-flex flex-column align-items-center mr-1">
+            <p className="mb-1">Break</p>
+            <p className="mb-1">{breakLengthInMinutes}</p>
             <div>
-                <button className="btn btn-outline-info btn-sm" id="break-decrement" onClick={props.decrementBreakLengthByOneMinute}>-</button>
-                <button className="btn btn-outline-info btn-sm" id="break-increment" onClick={props.incrementBreakLengthByOneMinute}>+</button>
+                <button className="btn btn-outline-info btn-sm" onClick={decrementBreakLengthByOneMinute}>-</button>
+                <button className="btn btn-outline-info btn-sm" onClick={incrementBreakLengthByOneMinute}>+</button>
             </div>
             
         </div>

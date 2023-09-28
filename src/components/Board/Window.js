@@ -1,5 +1,5 @@
 import Modal from "react-modal";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import BoardClient from "../../store/BoardClient";
 import { RxCross1 } from "react-icons/rx";
 import { IoCardOutline } from "react-icons/io5";
@@ -8,6 +8,7 @@ import TaskContext from "../../store/task-ctx";
 import Break from "../PomodoroTimer/Break";
 import Session from "../PomodoroTimer/Session";
 import TimeLeft from "../PomodoroTimer/TimeLeft";
+import TimeContext from "../../store/time-ctx";
 
 
 const Window = ({show, onClose}) => {
@@ -17,8 +18,19 @@ const Window = ({show, onClose}) => {
     const [input, setInput] = useState(ctx.description);
     const [oldInput, setOldInput] = useState("");
     const [typing, setTyping] = useState(false);
-    const [sessionLength, setSessionLength] = useState(60 * 25);
+
     const [breakLength, setBreakLength] = useState(300);
+    const [sessionLength, setSessionLength] = useState(60 * 25);
+
+    const [currentSessionType, setCurrentSessionType] = useState("Session"); // Session or Break
+    const [intervalId, setIntervalId] = useState(null);
+    const [timeLeft, setTimeLeft] = useState(sessionLength);
+
+    // change timeLeft whenever sessionLength changes
+
+    useEffect (() => {
+        setTimeLeft(sessionLength);
+    }, [sessionLength]);
 
     const inputChangeHandler = (event) => {
         setInput(event.target.value);
@@ -56,6 +68,20 @@ const Window = ({show, onClose}) => {
         description = input;
     }
 
+    const decrementBreakLengthByOneMinute = () => {
+        const newBreakLength = breakLength - 60;
+        
+        if (newBreakLength < 0) {
+            setBreakLength(0);
+        } else {
+            setBreakLength(newBreakLength);
+        }
+    };
+
+    const incrementBreakLengthByOneMinute = () => {
+        setBreakLength(breakLength + 60);
+    };
+
     const decrementSessionLengthByOneMinute = () => {
         const newSessionLength = sessionLength - 60;
         
@@ -70,18 +96,41 @@ const Window = ({show, onClose}) => {
         setSessionLength(sessionLength + 60);
     };
 
-    const decrementBreakLengthByOneMinute = () => {
-        const newBreakLength = breakLength - 60;
-        
-        if (newBreakLength < 0) {
-            setBreakLength(0);
+
+    const isStarted = intervalId !== null; 
+    const handleStartStopClick = () => {
+        if (isStarted) {
+            clearInterval(intervalId);
+            setIntervalId(null);
         } else {
-            setBreakLength(newBreakLength);
+            const newIntervalId = setInterval(() => {
+                setTimeLeft(prevTimeLeft => {
+                    const newTimeLeft = prevTimeLeft - 1;
+                    if (newTimeLeft >= 0) {
+                        return prevTimeLeft - 1 ;
+                    }
+                    if (currentSessionType === "Session") {
+                        setCurrentSessionType("Break");
+                        setTimeLeft(breakLength);
+                    }
+                    else if (currentSessionType === "Break") {
+                        setCurrentSessionType("Session");
+                        setTimeLeft(sessionLength);
+                    }
+                });
+            }, 100);
+            setIntervalId(newIntervalId);
         }
     };
 
-    const incrementBreakLengthByOneMinute = () => {
-        setBreakLength(breakLength + 60);
+
+    const handleResetButtonClick = () => {
+        clearInterval(intervalId);
+        setIntervalId(null);
+        setCurrentSessionType("Break");
+        setSessionLength(60*25);
+        setBreakLength(60*5);
+        setTimeLeft(60*25);
     };
 
     return (
@@ -110,15 +159,16 @@ const Window = ({show, onClose}) => {
                 <div className="model-dialog-scrollable pt-5 pb-5">
                     <div className="modal-header p-0">
                         <MdNotes className="mr-2 mt-1" size="16px"/>
-                        <h5 className="modal-title" style={{flex: "1 90%"}}>Description </h5>
+                        <h5 style={{flex: "1 70%"}}>Description </h5>
                     </div>
                     <div>
                     {!typing && <div 
-                                    className="d-flex flex-column mt-2 mb-2"
+                                    className="d-flex flex-column mt-2 mb-2 pl-2 pt-2"
                                     style={{
                                         backgroundColor: "rgb(255, 186, 186)", 
                                         height: "100px", 
-                                        borderRadius: "12px"
+                                        borderRadius: "12px",
+                                        marginRight: "2px"
                                     }}
                                     onMouseOver={({target}) => target.style.backgroundColor="rgb(255, 178, 178)"}
                                     onMouseOut={({target}) => target.style.backgroundColor="rgb(255, 186, 186)"}
@@ -143,19 +193,30 @@ const Window = ({show, onClose}) => {
                     }
                     </div>
                 </div>
-                <div className="d-flex flex-column justify-content-end" style={{marginTop: "300px"}}>
-                    <TimeLeft sessionLength={sessionLength} breakLength={breakLength}></TimeLeft>
+                <div className="d-flex flex-column justify-content-end" style={{marginTop: "280px"}}>
+                    <TimeLeft
+                        handleStartStopClick={handleStartStopClick}
+                        handleResetButtonClick={handleResetButtonClick}
+                        startStopButtonLabel={isStarted ? 'Stop' : 'Start'}
+                        timeLeft={timeLeft}
+                    ></TimeLeft>
                     <div className="d-flex flex-row justify-content-center">
-                        <Break
-                            breakLength={breakLength}
-                            decrementBreakLengthByOneMinute={decrementBreakLengthByOneMinute}
-                            incrementBreakLengthByOneMinute={incrementBreakLengthByOneMinute}    
-                        ></Break>
-                        <Session 
-                            sessionLength={sessionLength} 
-                            decrementSessionLengthByOneMinute={decrementSessionLengthByOneMinute}
-                            incrementSessionLengthByOneMinute={incrementSessionLengthByOneMinute}
-                        ></Session>
+                        <TimeContext.Provider
+                            value={{
+                                breakLength: breakLength,
+                                sessionLength: sessionLength,
+                            }}
+                        >
+                            <Break 
+                                decrementBreakLengthByOneMinute={decrementBreakLengthByOneMinute}
+                                incrementBreakLengthByOneMinute={incrementBreakLengthByOneMinute}
+                            ></Break>
+                            <Session
+                                decrementSessionLengthByOneMinute={decrementSessionLengthByOneMinute}
+                                incrementSessionLengthByOneMinute={incrementSessionLengthByOneMinute}
+                            ></Session>
+                        </TimeContext.Provider>
+                        
                     </div>
                 </div>
             </div>

@@ -1,17 +1,20 @@
 import React from "react";
 import moment from "moment";
+import TimeContext from "../../store/time-ctx";
+import { useContext } from "react";
 
-const Session = (props) => {
+const Session = ({decrementSessionLengthByOneMinute, incrementSessionLengthByOneMinute}) => {
 
-    const sessionLengthInMinutes = moment.duration(props.sessionLength, 's').minutes()
+    const timeCtx = useContext(TimeContext);
+    const sessionLengthInMinutes = moment.duration(timeCtx.sessionLength, 's').minutes()
 
     return (
         <div className="d-flex flex-column align-items-center">
-            <p className="mb-2" id="session-label">Session</p>
-            <p className="mb-2" id="session-length">{sessionLengthInMinutes}</p>
+            <p className="mb-1">Session</p>
+            <p className="mb-1">{sessionLengthInMinutes}</p>
             <div>
-                <button className="btn btn-outline-info btn-sm" id="session-decrement" onClick={props.decrementSessionLengthByOneMinute}>-</button>
-                <button className="btn btn-outline-info btn-sm" id="session-increment" onClick={props.incrementSessionLengthByOneMinute}>+</button>
+                <button className="btn btn-outline-info btn-sm" onClick={decrementSessionLengthByOneMinute}>-</button>
+                <button className="btn btn-outline-info btn-sm" onClick={incrementSessionLengthByOneMinute}>+</button>
             </div>
             
         </div>
