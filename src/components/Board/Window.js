@@ -137,18 +137,18 @@ const Window = ({show, onClose}) => {
         <Modal
             isOpen={show}
             onRequestClose={onClose}
-            style={{content: {borderRadius: "15px", backgroundColor: "rgb(255, 204, 204)", width: "600px"}}}
+            style={{content: {borderRadius: "15px", backgroundColor: "rgb(242, 103, 103)", width: "600px"}}}
         >
             <div >
-                <div className="modal-content pb-5" style={{borderColor: "rgb(255, 204, 204)", backgroundColor: "rgb(255, 204, 204)"}}>
+                <div className="modal-content" style={{borderColor: "rgb(255, 204, 204)", backgroundColor: "rgb(255, 204, 204)"}}>
                     <div className="modal-header p-0 align-top" style={{borderColor: "rgb(255, 204, 204)"}}>
                         <IoCardOutline className="mr-2 mt-2" size="16px"/>
-                        <h4 className="modal-title" style={{flex: "1 90%"}}>{ctx.name}</h4>
+                        <h5 className="modal-title" style={{flex: "1 90%"}}>{ctx.name}</h5>
                         <RxCross1 
                             type="button" 
                             className="btn-close mt-2 rounded"
-                            style={{width: "40px"}}
-                            size="20px" 
+                            style={{width: "30px"}}
+                            size="16px" 
                             onMouseOver={({target}) => target.style.backgroundColor="rgb(255, 186, 186)"} 
                             onMouseOut={({target}) => target.style.backgroundColor="rgb(255, 204, 204)"} 
                             onClick={onClose}
@@ -156,10 +156,10 @@ const Window = ({show, onClose}) => {
                         </RxCross1>
                     </div>
                 </div>
-                <div className="model-dialog-scrollable pt-5 pb-5">
+                <div className="model-dialog-scrollable" style={{width: "350px", marginTop: "100px"}}>
                     <div className="modal-header p-0">
-                        <MdNotes className="mr-2 mt-1" size="16px"/>
-                        <h5 style={{flex: "1 70%"}}>Description </h5>
+                        <MdNotes className="mr-2" size="16px"/>
+                        <h6 style={{flex: "1 70%"}}>Description </h6>
                     </div>
                     <div>
                     {!typing && <div 
