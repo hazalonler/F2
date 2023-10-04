@@ -143,7 +143,7 @@ const Window = ({show, onClose}) => {
                 <div className="modal-content" style={{borderColor: "rgb(255, 204, 204)", backgroundColor: "rgb(255, 204, 204)"}}>
                     <div className="modal-header p-0 align-top" style={{borderColor: "rgb(255, 204, 204)"}}>
                         <IoCardOutline className="mr-2 mt-2" size="16px"/>
-                        <h5 className="modal-title" style={{flex: "1 90%"}}>{ctx.name}</h5>
+                        <h5 className="d-flex flex-row mt-1" style={{flex: "1"}}>{ctx.name}</h5>
                         <RxCross1 
                             type="button" 
                             className="btn-close mt-2 rounded"
@@ -157,66 +157,75 @@ const Window = ({show, onClose}) => {
                     </div>
                 </div>
                 <div className="model-dialog-scrollable" style={{width: "350px", marginTop: "100px"}}>
-                    <div className="modal-header p-0">
-                        <MdNotes className="mr-2" size="16px"/>
-                        <h6 style={{flex: "1 70%"}}>Description </h6>
-                    </div>
-                    <div>
-                    {!typing && <div 
-                                    className="d-flex flex-column mt-2 mb-2 pl-2 pt-2"
-                                    style={{
-                                        backgroundColor: "rgb(255, 186, 186)", 
-                                        height: "100px", 
-                                        borderRadius: "12px",
-                                        marginRight: "2px"
-                                    }}
-                                    onMouseOver={({target}) => target.style.backgroundColor="rgb(255, 178, 178)"}
-                                    onMouseOut={({target}) => target.style.backgroundColor="rgb(255, 186, 186)"}
-                                    type="button"
-                                    onClick={clickHandler}
-                                >
-                                    {description}
-                                </div>   
-                    }
-                    {typing && <div>
-                                    <textarea
-                                        className="form-control"
-                                        type="textarea"
-                                        autoFocus
-                                        rows={`${rowsNum}`} 
-                                        value={input} 
-                                        onChange={inputChangeHandler} 
-                                    ></textarea>
-                                    <button type="button" className="btn-close btn-warning mt-2 rounded mr-2 ml-3" onClick={submitHandler}>Save</button>
-                                    <button type="button" className="btn-close btn-secondary mt-2 rounded" onClick={cancelHandler}>Cancel</button>
+                    <div className="d-flex flex-row" style={{width: "550px"}}>
+                        <div className="d-flex flex-column mr-auto" style={{flexBasis: "60%"}}>
+                            <div className="d-flex flex-row">
+                                <MdNotes size="16px"/>
+                                <h6 className="pl-1" >Description</h6>
+                            </div>
+                            <div>
+                                {!typing && <div 
+                                                className="d-flex flex-column mt-2 mb-2 pl-3 pt-2"
+                                                style={{
+                                                    backgroundColor: "rgb(255, 186, 186)", 
+                                                    height: "100px", 
+                                                    borderRadius: "12px",
+                                                }}
+                                                onMouseOver={({target}) => target.style.backgroundColor="rgb(255, 178, 178)"}
+                                                onMouseOut={({target}) => target.style.backgroundColor="rgb(255, 186, 186)"}
+                                                type="button"
+                                                onClick={clickHandler}
+                                            >
+                                                {description}
+                                            </div>   
+                                }
+                                {typing && <div>
+                                                <textarea
+                                                    className="form-control"
+                                                    type="textarea"
+                                                    autoFocus
+                                                    rows={`${rowsNum}`} 
+                                                    value={input} 
+                                                    onChange={inputChangeHandler} 
+                                                ></textarea>
+                                                <button type="button" className="btn-close btn-warning mt-2 rounded mr-2 ml-3" onClick={submitHandler}>Save</button>
+                                                <button type="button" className="btn-close btn-secondary mt-2 rounded" onClick={cancelHandler}>Cancel</button>
+                                            </div>
+                                }
+                            </div>
+                        </div>
+                        <div className="d-flex flex-column justify-content-center">
+                            <div className="d-flex flex-row justify-content-center">
+                                <h6>Pomodoro</h6>
+                            </div>
+                            <div className="d-flex flex-row">
+                                <div className="d-flex flex-column"> 
+                                    <TimeLeft
+                                        handleStartStopClick={handleStartStopClick}
+                                        handleResetButtonClick={handleResetButtonClick}
+                                        startStopButtonLabel={isStarted ? 'Stop' : 'Start'}
+                                        timeLeft={timeLeft}
+                                    ></TimeLeft>
+                                    <div className="d-flex flex-row justify-content-center">
+                                        <TimeContext.Provider
+                                            value={{
+                                                breakLength: breakLength,
+                                                sessionLength: sessionLength,
+                                            }}
+                                        >
+                                            <Break 
+                                                decrementBreakLengthByOneMinute={decrementBreakLengthByOneMinute}
+                                                incrementBreakLengthByOneMinute={incrementBreakLengthByOneMinute}
+                                            ></Break>
+                                            <Session
+                                                decrementSessionLengthByOneMinute={decrementSessionLengthByOneMinute}
+                                                incrementSessionLengthByOneMinute={incrementSessionLengthByOneMinute}
+                                            ></Session>
+                                        </TimeContext.Provider>
+                                    </div>
                                 </div>
-                    }
-                    </div>
-                </div>
-                <div className="d-flex flex-column justify-content-end" style={{marginTop: "280px"}}>
-                    <TimeLeft
-                        handleStartStopClick={handleStartStopClick}
-                        handleResetButtonClick={handleResetButtonClick}
-                        startStopButtonLabel={isStarted ? 'Stop' : 'Start'}
-                        timeLeft={timeLeft}
-                    ></TimeLeft>
-                    <div className="d-flex flex-row justify-content-center">
-                        <TimeContext.Provider
-                            value={{
-                                breakLength: breakLength,
-                                sessionLength: sessionLength,
-                            }}
-                        >
-                            <Break 
-                                decrementBreakLengthByOneMinute={decrementBreakLengthByOneMinute}
-                                incrementBreakLengthByOneMinute={incrementBreakLengthByOneMinute}
-                            ></Break>
-                            <Session
-                                decrementSessionLengthByOneMinute={decrementSessionLengthByOneMinute}
-                                incrementSessionLengthByOneMinute={incrementSessionLengthByOneMinute}
-                            ></Session>
-                        </TimeContext.Provider>
-                        
+                            </div>  
+                        </div>
                     </div>
                 </div>
             </div>
