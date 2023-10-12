@@ -1,6 +1,6 @@
 import { Fragment, useRef, useState, useContext } from "react";
 import { useDrag, useDrop } from "react-dnd";
-import Window from "./Window";
+import Window from "../PopUpPage/Window";
 import BoardClient from "../../store/BoardClient";
 import TaskContext from "../../store/task-ctx";
 
