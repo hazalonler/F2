@@ -78,32 +78,33 @@ const BoardList =  ({listId, name, style}) => {
         }),
     });
 
-    
     return(
-        <div className="col-lg mt-3 ml-3 shadow-lg p-3" style={style} >
-            <h4 style={{color: "rgb(96, 96, 96)"}} >{name}</h4>
-                <ul ref={drop} className="list-unstyled">
-                    {tasksOnBoard.map((task) => (
-                        <TaskContext.Provider 
-                            value={{
-                                id: task._id,
-                                name: task.name,
-                                creationTs: task.creationTs,
-                                updatedTs: task.updatedTs,
-                                listId: task.listId,
-                                boardId: task.boardId,
-                                priority: task.priority,
-                                description: task.description,
-                            }}
-                        >
-                            <ListItem
-                                key={task.id}
-                                refresh={refresh}
-                            />
-                        </TaskContext.Provider>
-                    ))}
-                    <NewTask onAddTask={addNewTaskHandler}/>
-                </ul>
+        <div className="col-lg mt-3 ml-3 mr-3 shadow-lg p-3" style={style}>
+            <div>
+                <h2 style={{color: "black", height: "50px"}}>{name}</h2>
+            </div>
+            <ul ref={drop} className="list-unstyled">
+                {tasksOnBoard.map((task) => (
+                    <TaskContext.Provider 
+                        value={{
+                            id: task._id,
+                            name: task.name,
+                            creationTs: task.creationTs,
+                            updatedTs: task.updatedTs,
+                            listId: task.listId,
+                            boardId: task.boardId,
+                            priority: task.priority,
+                            description: task.description,
+                        }}
+                    >
+                        <ListItem
+                            key={task.id}
+                            refresh={refresh}
+                        />
+                    </TaskContext.Provider>
+                ))}
+                <NewTask onAddTask={addNewTaskHandler}/>
+            </ul>
         </div>
     );
 };
