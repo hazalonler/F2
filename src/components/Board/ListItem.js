@@ -81,13 +81,14 @@ const ListItem = ({refresh}) => {
                 style={{opacity: isDragging || isOver ? "0" : "1"}} 
                 ref={ref}
                 onClick={onOpen}
+                onMouseOver={({target}) => target.style.backgroundColor="silver"}
+                onMouseOut={({target}) => target.style.backgroundColor="lightgrey"}
             >
                 <div 
                     className="btn" 
                     style={{
                         borderRadius: "12px", 
-                        backgroundColor: "rgb(255, 178, 178)", 
-                        borderColor: "rgb(255, 178, 178)"
+                        borderColor: "rgba(119,136,153,0.2)"
                     }}
                 >
                     {shownName}

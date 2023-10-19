@@ -79,7 +79,7 @@ const BoardList =  ({listId, name, style}) => {
     });
 
     return(
-        <div className="col-lg mt-3 ml-3 mr-3 shadow-lg p-3" style={style}>
+        <div className="col-lg mt-3 ml-3 mr-3 shadow-lg p-3" style={{borderRadius: "12px", marginBottom: "14px"}}>
             <div>
                 <h2 style={{color: "black", height: "50px"}}>{name}</h2>
             </div>

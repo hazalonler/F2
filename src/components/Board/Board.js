@@ -14,7 +14,7 @@ const Board = () => {
                         <BoardList
                             key={list.id}
                             listId={list.id}
-                            name={list.name}
+                            name={list.listName}
                             style={list.style}
                         ></BoardList>
                     )
