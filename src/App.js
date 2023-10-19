@@ -25,9 +25,6 @@ const App = () => {
           })});
    }, []);
 
-   console.log(board);
-
-
 
   return (
       <DndProvider backend={HTML5Backend}>

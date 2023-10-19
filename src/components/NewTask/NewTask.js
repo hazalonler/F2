@@ -1,6 +1,6 @@
 import { useState } from "react";
-
 import TaskForm from "./TaskForm";
+import "./NewTask.css";
 
 const NewTask = (props) => {
 
@@ -24,13 +24,7 @@ const NewTask = (props) => {
         <div>
             {!showTaskForm && 
                 (<button 
-                    type="button" 
-                    className="btn mb-3" 
-                    style={{
-                        borderRadius: "12px", 
-                        backgroundColor: "rgb(255, 178, 178)", 
-                        borderColor: "rgb(255, 178, 178)"
-                    }} 
+                    className="new-task" 
                     onClick={addButtonHandler}
                 > 
                     + Add Task

@@ -88,7 +88,8 @@ const ListItem = ({refresh}) => {
                     className="btn" 
                     style={{
                         borderRadius: "12px", 
-                        borderColor: "rgba(119,136,153,0.2)"
+                        borderColor: "rgba(119,136,153,0.2)",
+                        height: "40px"
                     }}
                 >
                     {shownName}

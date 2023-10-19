@@ -1,6 +1,7 @@
 import BoardList from "./BoardList";
 import { Fragment, useContext } from "react";
 import BoardContext from "../../store/board-ctx";
+import "./Board.css"
 
 const Board = () => {
 
@@ -8,7 +9,7 @@ const Board = () => {
 
     return (
         <Fragment>
-            <div className="d-flex flex-row" style={{width: "1000px"}}>
+            <div className="board">
                 {boardCtx.listConfig.map((list) => {
                     return (
                         <BoardList
