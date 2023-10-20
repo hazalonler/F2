@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import TaskForm from "./TaskForm";
 import "./NewTask.css";
 
@@ -20,8 +20,7 @@ const NewTask = (props) => {
     };
 
     return (
-
-        <div>
+        <Fragment>
             {!showTaskForm && 
                 (<button 
                     className="new-task" 
@@ -33,7 +32,7 @@ const NewTask = (props) => {
             {showTaskForm && 
                 (<TaskForm  onSaveTaskName={saveTaskNameHandler} onCancel={cancelButtonHandler}/>
             )}
-        </div>
+        </Fragment>
     )
 
 };

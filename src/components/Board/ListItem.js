@@ -77,22 +77,12 @@ const ListItem = ({refresh}) => {
     return (
         <Fragment>
             <div 
-                type="button" 
                 className="list-item"
                 style={{opacity: isDragging || isOver ? "0" : "1"}} 
                 ref={ref}
                 onClick={onOpen}
             >
-                <div 
-                    className="btn" 
-                    style={{
-                        borderRadius: "12px", 
-                        borderColor: "black",
-                        height: "40px"
-                    }}
-                >
-                    {shownName}
-                </div>
+                {shownName}   
             </div>
             <Window 
                 show={show}
