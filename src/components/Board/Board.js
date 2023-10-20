@@ -1,7 +1,7 @@
 import BoardList from "./BoardList";
 import { Fragment, useContext } from "react";
 import BoardContext from "../../store/board-ctx";
-import "./Board.css"
+import "../Board/BoardCSS/Board.css"
 
 const Board = () => {
 

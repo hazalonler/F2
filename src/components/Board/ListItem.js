@@ -3,6 +3,7 @@ import { useDrag, useDrop } from "react-dnd";
 import Window from "../PopUpPage/Window";
 import BoardClient from "../../store/BoardClient";
 import TaskContext from "../../store/task-ctx";
+import "../Board/BoardCSS/ListItem.css"
 
 const ListItem = ({refresh}) => {
 
@@ -77,12 +78,10 @@ const ListItem = ({refresh}) => {
         <Fragment>
             <div 
                 type="button" 
-                className="d-flex flex-column mb-2"
+                className="list-item"
                 style={{opacity: isDragging || isOver ? "0" : "1"}} 
                 ref={ref}
                 onClick={onOpen}
-                onMouseOver={({target}) => target.style.backgroundColor="navajowhite"}
-                onMouseOut={({target}) => target.style.backgroundColor="antiquewhite"}
             >
                 <div 
                     className="btn" 

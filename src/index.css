@@ -2,7 +2,7 @@
 
 * {
   box-sizing: border-box;
-  background-color: antiquewhite;
+  background-color: rgb(250,235,215);
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
@@ -12,6 +12,6 @@ html {
 
 body {
   margin: 0;
-  background-color: antiquewhite;
+  background-color: rgb(250,235,215);
 }
 

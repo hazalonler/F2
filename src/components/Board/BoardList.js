@@ -5,7 +5,7 @@ import BoardClient from "../../store/BoardClient"
 import { useDrop } from "react-dnd";
 import TaskContext from "../../store/task-ctx";
 import BoardContext from "../../store/board-ctx";
-import "./BoardList.css"
+import "../Board/BoardCSS/BoardList.css"
 const BoardList =  ({listId, name, style}) => {
 
     const boardCtx = useContext(BoardContext);
@@ -81,7 +81,7 @@ const BoardList =  ({listId, name, style}) => {
     return(
         <div className="board-list">
             <h4>{name}</h4>
-            <ul ref={drop} className="list-unstyled">
+            <ul ref={drop} className="un-list">
                 {tasksOnBoard.map((task) => (
                     <TaskContext.Provider 
                         value={{
