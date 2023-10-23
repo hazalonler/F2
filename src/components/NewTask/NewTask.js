@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import TaskForm from "./TaskForm";
-import "./NewTask.css";
+import "../NewTask/CSS-Folder/NewTask.css";
 
 const NewTask = (props) => {
 

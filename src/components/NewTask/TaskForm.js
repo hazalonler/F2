@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { RxCross1 } from "react-icons/rx";
-import "./TaskForm.css"
+import "../NewTask/CSS-Folder/TaskForm.css"
 
 const TaskForm = (props) => {
 
@@ -26,7 +26,7 @@ const TaskForm = (props) => {
         <div >
             <form className="task-form" onSubmit={submitHandler}>
                 <input
-                    className=""
+                    className="input"
                     style={{borderRadius: "12px"}}
                     type="text"
                     autoFocus

@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import BoardContext from "../../store/board-ctx";
-import "../Board/BoardCSS/Header.css"
+import "../Board/CSS-Folder/Header.css"
 
 const Header = () => {
 

@@ -5,7 +5,7 @@ import BoardClient from "../../store/BoardClient"
 import { useDrop } from "react-dnd";
 import TaskContext from "../../store/task-ctx";
 import BoardContext from "../../store/board-ctx";
-import "../Board/BoardCSS/BoardList.css"
+import "../Board/CSS-Folder/BoardList.css"
 const BoardList =  ({listId, name, style}) => {
 
     const boardCtx = useContext(BoardContext);

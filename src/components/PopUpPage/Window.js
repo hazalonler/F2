@@ -97,7 +97,6 @@ const Window = ({show, onClose}) => {
         <Modal
             isOpen={show}
             onRequestClose={onClose}
-            style={{content: {borderRadius: "15px", backgroundColor: "rgb(242, 103, 103)", width: "600px"}}}
         >
             <div >
                 <div className="modal-content" style={{backgroundColor: "rgb(242,103,103)", borderColor: "rgb(242,103,103)"}}>

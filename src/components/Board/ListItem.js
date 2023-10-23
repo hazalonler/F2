@@ -3,7 +3,7 @@ import { useDrag, useDrop } from "react-dnd";
 import Window from "../PopUpPage/Window";
 import BoardClient from "../../store/BoardClient";
 import TaskContext from "../../store/task-ctx";
-import "../Board/BoardCSS/ListItem.css"
+import "../Board/CSS-Folder/ListItem.css"
 
 const ListItem = ({refresh}) => {
 
