@@ -1,7 +1,58 @@
-
-
-.modal {
-    border-radius: 15px; 
-    background-color: rgb(255, 204, 153); 
-    width: 600px;
+.window {
+    max-width: 800px;
+    min-height: 800px;
+    position: relative;
+    top: 100px;
+    left: calc(50vw - 400px);
+    border-radius: 12px;
 }
+
+
+.content {
+    background-color: rgb(255, 204, 153);
+    border-top-right-radius: 12px;
+    border-top-left-radius: 12px;
+}
+
+.header {
+    background-color: rgb(255, 204, 153);
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    flex-direction: row;
+    border-color: rgb(255, 204, 204);
+}
+
+.card {
+    margin-right: 10px;
+    flex-basis: 2%;
+    size: 16px;
+    background-color: rgb(255, 204, 153)
+}
+
+h5 {
+    flex-basis: 95%;
+    margin-right: 10px;
+    margin-top: 10px;
+    background-color: rgb(255, 204, 153)
+}
+
+.cross-button {
+    flex-basis: 3%;
+    height: 22px;
+    padding: 2px;
+    background-color: rgb(255, 204, 153);
+    color: grey;
+    cursor: pointer;
+}
+
+.cross-button:hover {
+    color: black;
+    border-radius: 50%;
+    background-color: rgba(238, 139, 40, 0.45);
+}
+
+.scrollable {
+    background-color: rgb(255, 204, 153)
+}
+
