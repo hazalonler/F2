@@ -99,51 +99,46 @@ const Window = ({show, onClose}) => {
             isOpen={show}
             onRequestClose={onClose}
             className="window"
+            style={{overlay: {backgroundColor:"#000000a3"}}}
         >
             <div className="content">
                 <div className="header" >
                     <IoCardOutline className="card" />
-                    <h5 >{ctx.name}</h5>
+                    <h5 className="task-name">{ctx.name}</h5>
                     <RxCross1 className="cross-button" type="button" onClick={onClose} ></RxCross1>
                 </div>
             </div>
-            <div className="scrollable" style={{marginTop: "100px"}}>
-                <div className="d-flex flex-row" style={{width: "550px"}}>
-                    <div className="d-flex flex-column mr-auto" style={{flexBasis: "60%"}}>
-                        <Description></Description>
-                        <Activity></Activity>
-                    </div>
-                    <div className="d-flex flex-column justify-content-start mr-4 mt-2">
+            <div className="scrollable" >
+                <div className="explaination">
+                    <Description></Description>
+                    <Activity></Activity>
+                </div>
+                <div className="other-feature">
+                    <h6 className="pomodoro-title">Pomodoro</h6>
+                    <div className="pomodoro-item"> 
+                        <TimeLeft
+                            handleStartStopClick={handleStartStopClick}
+                            handleResetButtonClick={handleResetButtonClick}
+                            startStopButtonLabel={isStarted ? 'Stop' : 'Start'}
+                            timeLeft={timeLeft}
+                        ></TimeLeft>
                         <div className="d-flex flex-row justify-content-center">
-                            <h6>Pomodoro</h6>
+                            <TimeContext.Provider
+                                value={{
+                                    breakLength: breakLength,
+                                    sessionLength: sessionLength,
+                                }}
+                            >
+                                <Break 
+                                    decrementBreakLengthByOneMinute={decrementBreakLengthByOneMinute}
+                                    incrementBreakLengthByOneMinute={incrementBreakLengthByOneMinute}
+                                ></Break>
+                                <Session
+                                    decrementSessionLengthByOneMinute={decrementSessionLengthByOneMinute}
+                                    incrementSessionLengthByOneMinute={incrementSessionLengthByOneMinute}
+                                ></Session>
+                            </TimeContext.Provider>
                         </div>
-                        <div className="d-flex flex-row">
-                            <div className="d-flex flex-column"> 
-                                <TimeLeft
-                                    handleStartStopClick={handleStartStopClick}
-                                    handleResetButtonClick={handleResetButtonClick}
-                                    startStopButtonLabel={isStarted ? 'Stop' : 'Start'}
-                                    timeLeft={timeLeft}
-                                ></TimeLeft>
-                                <div className="d-flex flex-row justify-content-center">
-                                    <TimeContext.Provider
-                                        value={{
-                                            breakLength: breakLength,
-                                            sessionLength: sessionLength,
-                                        }}
-                                    >
-                                        <Break 
-                                            decrementBreakLengthByOneMinute={decrementBreakLengthByOneMinute}
-                                            incrementBreakLengthByOneMinute={incrementBreakLengthByOneMinute}
-                                        ></Break>
-                                        <Session
-                                            decrementSessionLengthByOneMinute={decrementSessionLengthByOneMinute}
-                                            incrementSessionLengthByOneMinute={incrementSessionLengthByOneMinute}
-                                        ></Session>
-                                    </TimeContext.Provider>
-                                </div>
-                            </div>
-                        </div>  
                     </div>
                 </div>
             </div>

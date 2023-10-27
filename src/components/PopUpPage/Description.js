@@ -4,6 +4,7 @@ import { Fragment } from "react";
 import TaskContext from "../../store/task-ctx";
 import { useContext, useState } from "react";
 import BoardClient from "../../store/BoardClient";
+import "../PopUpPage/CSS-Folder/Description.css"
 
 const Description = () => {
 
@@ -52,21 +53,14 @@ const Description = () => {
     
 
     return (
-        <Fragment>
-            <div className="d-flex flex-row">
+        <Fragment >
+            <div className="title">
                 <MdNotes size="16px"/>
-                <h6 className="pl-1" >Description</h6>
+                <h6 className="title" >Description</h6>
             </div>
-            <div>
+            <div className="description">
                 {!typing && <div 
-                                className="d-flex flex-column mt-2 mb-2 pl-3 pt-2"
-                                style={{
-                                    backgroundColor: "rgb(255, 186, 186)", 
-                                    height: "100px", 
-                                    borderRadius: "12px",
-                                }}
-                                onMouseOver={({target}) => target.style.backgroundColor="rgb(255, 178, 178)"}
-                                onMouseOut={({target}) => target.style.backgroundColor="rgb(255, 186, 186)"}
+                                className="not-typing"
                                 type="button"
                                 onClick={clickHandler}
                             >

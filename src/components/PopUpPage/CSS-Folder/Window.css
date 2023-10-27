@@ -7,7 +7,6 @@
     border-radius: 12px;
 }
 
-
 .content {
     background-color: rgb(255, 204, 153);
     border-top-right-radius: 12px;
@@ -30,10 +29,10 @@
     background-color: rgb(255, 204, 153)
 }
 
-h5 {
+.task-name {
     flex-basis: 95%;
     margin-right: 10px;
-    margin-top: 10px;
+    margin-top: 8px;
     background-color: rgb(255, 204, 153)
 }
 
@@ -53,6 +52,35 @@ h5 {
 }
 
 .scrollable {
-    background-color: rgb(255, 204, 153)
+    margin-top: 100px;
+    display: flex;
+    flex-direction: row;
+}
+
+.explaination {
+    display: flex;
+    flex-direction: column;
+    margin-right: auto;
+    margin-left: 10px;
+    flex-basis: 65%;
+    background-color: rgb(255, 204, 153);
+}
+
+.other-feature {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    margin-right: 10px;
+    flex-basis: 25%;
+}
+
+.pomodoro-title {
+    text-align: center;
+}
+
+.pomodoro-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 

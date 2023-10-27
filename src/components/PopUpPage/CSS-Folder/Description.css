@@ -1,0 +1,26 @@
+
+.title {
+    display: flex;
+    flex-direction: row;
+}
+
+.title h6  {
+    padding-left: 4px;
+}
+
+.not-typing {
+    display: flex;
+    flex-direction: column;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding-left: 6px;
+    padding-top: 4px;
+    background-color: whitesmoke;
+    height: 100px;
+    border-radius: 12px;
+    cursor: pointer; 
+}
+
+.not-typing:hover {
+    background-color: antiquewhite;
+}
