@@ -4,13 +4,13 @@ import { MdNotes } from "react-icons/md";
 import { useContext, useState } from "react";
 import TaskContext from "../../store/task-ctx";
 import BoardClient from "../../store/BoardClient";
+import "../PopUpPage/CSS-Folder/Activity.css";
 
 const Activity = () => {
 
     const ctx = useContext(TaskContext);
 
     const [input, setInput] = useState(ctx.description);
-    const [oldInput, setOldInput] = useState("");
     const [typing, setTyping] = useState(false);
 
     const inputChangeHandler = (event) => {
@@ -22,16 +22,14 @@ const Activity = () => {
 
         const taskData = {
             ...ctx,
-            description: input
+            activity: input
         }
 
-        BoardClient.updateListData(taskData);
-        setOldInput(input);
+        // BoardClient.updateListData(taskData);
         setTyping(false);
     };
 
     const cancelHandler = () => {
-        setInput(oldInput);
         setTyping(false);
     };
 
@@ -49,20 +47,13 @@ const Activity = () => {
 
     return(
         <Fragment>
-        <div className="d-flex flex-row" style={{marginTop: "10px"}}>
+        <div className="activity-title">
             <MdNotes size="16px"/>
-            <h6 className="pl-1">Activity</h6>
+            <h6>Activity</h6>
         </div>
         <div>
             {!typing && <div 
-                            className="d-flex flex-column mt-2 mb-2 pl-3 pt-2"
-                            style={{
-                                backgroundColor: "rgb(255, 186, 186)", 
-                                height: "50px", 
-                                borderRadius: "12px",
-                            }}
-                            onMouseOver={({target}) => target.style.backgroundColor="rgb(255, 178, 178)"}
-                            onMouseOut={({target}) => target.style.backgroundColor="rgb(255, 186, 186)"}
+                            className="activity-not-typing"
                             type="button"
                             onClick={clickHandler}
                         >
@@ -74,7 +65,7 @@ const Activity = () => {
                                 className="form-control"
                                 type="textarea"
                                 autoFocus
-                                rows={`${1}`} 
+                                rows={`${3}`} 
                                 value={input} 
                                 onChange={inputChangeHandler} 
                             ></textarea>

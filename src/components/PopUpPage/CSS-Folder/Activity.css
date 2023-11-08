@@ -1,0 +1,27 @@
+
+.activity-title {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+
+.activity-title h6 {
+    padding-left: 4px;
+}
+
+.activity-not-typing {
+    display: flex;
+    flex-direction: column;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding-left: 6px;
+    padding-top: 4px;
+    background-color: whitesmoke;
+    height: 50px;
+    border-radius: 12px;
+}
+
+
+.activity-not-typing:hover {
+    background-color: rgb(255, 204, 153);
+}
