@@ -65,7 +65,7 @@ const Activity = () => {
                                 className="form-control"
                                 type="textarea"
                                 autoFocus
-                                rows={`${3}`} 
+                                rows={`${1}`} 
                                 value={input} 
                                 onChange={inputChangeHandler} 
                             ></textarea>

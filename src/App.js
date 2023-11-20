@@ -18,9 +18,9 @@ const App = () => {
       BoardClient.getBoardConfig()
           .then((data) => {data.map((firstData) => {
             setBoard({
-              boardId: firstData.board_id,
-              boardName: firstData.board_name,
-              listConfig: firstData.list_config
+              boardId: firstData.id,
+              boardName: firstData.name,
+              listConfig: firstData.list_configs
             });
           })});
    }, []);

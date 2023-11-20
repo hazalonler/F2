@@ -26,8 +26,6 @@ const BoardList =  ({listId, name, style}) => {
     } else {
         priority = 1000;
     }
-
- 
     const addNewTaskHandler = (newTask) => {
         const enteredTask = {
             ...newTask,
@@ -85,7 +83,7 @@ const BoardList =  ({listId, name, style}) => {
                 {tasksOnBoard.map((task) => (
                     <TaskContext.Provider 
                         value={{
-                            id: task._id,
+                            id: task.id,
                             name: task.name,
                             creationTs: task.creationTs,
                             updatedTs: task.updatedTs,
@@ -93,6 +91,7 @@ const BoardList =  ({listId, name, style}) => {
                             boardId: task.boardId,
                             priority: task.priority,
                             description: task.description,
+                            activity: task.activity,
                         }}
                     >
                         <ListItem

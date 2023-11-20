@@ -32,6 +32,8 @@ class BoardClient {
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(task)
       });
+
+      console.log(response);
       
       return await response.json();
     }

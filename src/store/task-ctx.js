@@ -9,7 +9,6 @@ const TaskContext = React.createContext({
     boardId: "",
     priority: 1000,
     description: "",
-    activity: [],
 });
 
 export default TaskContext;
