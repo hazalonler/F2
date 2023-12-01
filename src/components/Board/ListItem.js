@@ -67,13 +67,6 @@ const ListItem = ({refresh}) => {
 
     dragRef(dropRef(ref));
 
-    let shownName = ctx.name;
-
-    if (shownName.length > 20) {
-        shownName = shownName.slice(0,20) + "..."
-    }
-
-
     return (
         <Fragment>
             <div 
@@ -82,7 +75,7 @@ const ListItem = ({refresh}) => {
                 ref={ref}
                 onClick={onOpen}
             >
-                {shownName}   
+                {ctx.name.length>20 ? ctx.name.slice(0,20) + "..." : ctx.name}   
             </div>
             <Window 
                 show={show}
