@@ -22,6 +22,8 @@ const ListItem = ({refresh}) => {
                 return;
             }
 
+            console.log("Empty of not?:" + ctx.name + ctx.listId);
+
             const hoveredRect = ref.current.getBoundingClientRect();
             const hoverMiddleY = (hoveredRect.bottom - hoveredRect.top) / 2;
             const mousePosition = monitor.getClientOffset();
@@ -55,6 +57,7 @@ const ListItem = ({refresh}) => {
             isDragging: !!monitor.isDragging(),
         }),
         end: (item, monitor) => {
+            console.log(item);
             refresh();
         }
     }));
