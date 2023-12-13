@@ -6,10 +6,14 @@ import TaskContext from "../../store/task-ctx";
 import "../Board/CSS-Folder/ListItem.css"
 import { Lexorank } from "../../index/Lexorank";
 
+
+let listTasks = [];
+console.log(listTasks);
+
 const ListItem = ({refresh}) => {
 
     const ctx = useContext(TaskContext);
-
+    listTasks.push(ctx);
     const ref = useRef(null);
 
     let lexorank = new Lexorank(); 
@@ -33,15 +37,27 @@ const ListItem = ({refresh}) => {
             const hoverClientY = mousePosition.y - hoveredRect.top;
 
             if (hoverClientY < hoverMiddleY) {
+                listTasks.map((task) => {
+                    if (ctx.indexTask+1 === task.indexTask) {
+                        let [rank,ok] = lexorank.insert(ctx.priority, task.priority);
+                        dragItem.priority = rank;
+                    }
+                })
                 /* let [rank, ok] = lexorank.insert(item1Rank, item2Rank) 
                 dragItem.priority = rank */
-                dragItem.priority = ctx.priority + 1
+                /* dragItem.priority = ctx.priority + 1 */
             }
     
             if (hoverClientY > hoverMiddleY ) {
+                listTasks.map((task) => {
+                    if (ctx.indexTask-1 === task.indexTask) {
+                        let [rank,ok] = lexorank.insert(task.priority, ctx.priority);
+                        dragItem.priority = rank;
+                    }
+                })
                 /* let [rank, ok] = lexorank.insert(item1Rank, item2Rank)
                 dragItem.priority = rank */
-                dragItem.priority = ctx.priority - 1
+                /* dragItem.priority = ctx.priority - 1 */
             }
 
             console.log("After hover with hovered item:" + ctx.name + " " + ctx.priority);
@@ -67,7 +83,7 @@ const ListItem = ({refresh}) => {
         end: (item, monitor) => {
             console.log("Ended Item:" + item);
             refresh();
-        }
+        },
     }));
 
     const [show, setShow] = useState(false);

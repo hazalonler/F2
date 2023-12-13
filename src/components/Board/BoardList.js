@@ -6,6 +6,7 @@ import { useDrop } from "react-dnd";
 import TaskContext from "../../store/task-ctx";
 import BoardContext from "../../store/board-ctx";
 import "../Board/CSS-Folder/BoardList.css";
+import ListContext from "../../store/list-ctx";
 const BoardList = ({ listId, name, style }) => {
   const boardCtx = useContext(BoardContext);
 
@@ -64,25 +65,16 @@ const BoardList = ({ listId, name, style }) => {
       isOver: !!monitor.isOver(),
     }),
   });
-
-  
   
   return (
     <div className="board-list">
       <h4>{name}</h4>
       <ul ref={drop} className="un-list">
-        {tasksOnBoard.map((task) => ( 
+        {tasksOnBoard.map((task, index) => ( 
           <TaskContext.Provider
             value={{
-              id: task.id,
-              name: task.name,
-              creationTs: task.creationTs,
-              updatedTs: task.updatedTs,
-              listId: task.listId,
-              boardId: task.boardId,
-              priority: task.priority,
-              description: task.description,
-              activity: task.activity,
+              indexTask: index,
+              ...task
             }}
           >
             <ListItem key={task.id} refresh={refresh} />
