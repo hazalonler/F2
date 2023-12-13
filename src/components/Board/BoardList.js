@@ -44,16 +44,6 @@ const BoardList = ({ listId, name, style }) => {
     });
   };
 
-  /* let list_priority = [];
-
-  tasksOnBoard.map((task) => {
-    list_priority.push(
-      JSON.stringify(task.name) + ":" + JSON.stringify(task.priority)
-    );
-  });
-
-  console.log(list_priority); */ 
-
   const [{ isOver }, drop] = useDrop({
     accept: "ITEM",
     canDrop: (dragItem, monitor) => {
@@ -75,11 +65,13 @@ const BoardList = ({ listId, name, style }) => {
     }),
   });
 
+  
+  
   return (
     <div className="board-list">
       <h4>{name}</h4>
       <ul ref={drop} className="un-list">
-        {tasksOnBoard.map((task) => (
+        {tasksOnBoard.map((task) => ( 
           <TaskContext.Provider
             value={{
               id: task.id,

@@ -4,12 +4,15 @@ import Window from "../PopUpPage/Window";
 import BoardClient from "../../store/BoardClient";
 import TaskContext from "../../store/task-ctx";
 import "../Board/CSS-Folder/ListItem.css"
+import { Lexorank } from "../../index/Lexorank";
 
 const ListItem = ({refresh}) => {
 
     const ctx = useContext(TaskContext);
 
     const ref = useRef(null);
+
+    let lexorank = new Lexorank(); 
 
     const [ { isOver }, dropRef] = useDrop({
         accept: "ITEM",
@@ -22,7 +25,7 @@ const ListItem = ({refresh}) => {
                 return;
             }
 
-            console.log("Empty of not?:" + ctx.name + ctx.listId);
+            console.log("Before hover with hovered item:" + ctx.name + " " + ctx.priority);
 
             const hoveredRect = ref.current.getBoundingClientRect();
             const hoverMiddleY = (hoveredRect.bottom - hoveredRect.top) / 2;
@@ -30,14 +33,19 @@ const ListItem = ({refresh}) => {
             const hoverClientY = mousePosition.y - hoveredRect.top;
 
             if (hoverClientY < hoverMiddleY) {
+                /* let [rank, ok] = lexorank.insert(item1Rank, item2Rank) 
+                dragItem.priority = rank */
                 dragItem.priority = ctx.priority + 1
             }
     
             if (hoverClientY > hoverMiddleY ) {
+                /* let [rank, ok] = lexorank.insert(item1Rank, item2Rank)
+                dragItem.priority = rank */
                 dragItem.priority = ctx.priority - 1
             }
 
-            console.log("Empty of not?:" + ctx.name + ctx.listId);
+            console.log("After hover with hovered item:" + ctx.name + " " + ctx.priority);
+            console.log("After hover with draged item:" + dragItem.name + " " + dragItem.priority)
             
             dragItem.listId = ctx.listId;
             BoardClient.updateListData(dragItem).then(() => {
@@ -57,7 +65,7 @@ const ListItem = ({refresh}) => {
             isDragging: !!monitor.isDragging(),
         }),
         end: (item, monitor) => {
-            console.log(item);
+            console.log("Ended Item:" + item);
             refresh();
         }
     }));
