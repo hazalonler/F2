@@ -70,16 +70,23 @@ const BoardList = ({ listId, name, style }) => {
     <div className="board-list">
       <h4>{name}</h4>
       <ul ref={drop} className="un-list">
-        {tasksOnBoard.map((task, index) => ( 
-          <TaskContext.Provider
-            value={{
-              indexTask: index,
-              ...task
-            }}
-          >
-            <ListItem key={task.id} refresh={refresh} />
-          </TaskContext.Provider>
-        ))}
+        <ListContext.Provider
+          value={{
+            id: listId,
+            list: tasksOnBoard,
+          }}
+        >
+          {tasksOnBoard.map((task, index) => ( 
+            <TaskContext.Provider
+              value={{
+                indexTask: index,
+                ...task
+              }}
+            >
+              <ListItem key={task.id} refresh={refresh} />
+            </TaskContext.Provider>
+          ))}
+        </ListContext.Provider>
         <NewTask onAddTask={addNewTaskHandler} />
       </ul>
     </div>

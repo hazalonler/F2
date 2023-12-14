@@ -2,7 +2,7 @@
 
 export class Lexorank {
 
-    constructor(){
+    constructor() {
         this.MIN_CHAR = this.byte('0');
         this.MAX_CHAR = this.byte('z');
     }
@@ -15,6 +15,8 @@ export class Lexorank {
      * @returns {Array} of [String, Boolean]
      */
     insert(prev, next){
+        console.log("prev : " + typeof(prev) + "value: " + prev)
+        console.log("next : " + typeof(next) + "value: " + next)
         if (prev === '' || !prev) {
             prev = this.string(this.MIN_CHAR);
         }
@@ -35,14 +37,20 @@ export class Lexorank {
                 continue;
             }
 
+            console.log(rank);
+
             let midChar = this.mid(prevChar, nextChar);
             if (midChar === prevChar || midChar === nextChar) {
                 rank += this.string(prevChar);
+                console.log(rank);
                 i++;
                 continue;
             }
 
+            console.log(rank);
+
             rank += this.string(midChar);
+            console.log(rank);
             break;
         }
 

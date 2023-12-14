@@ -5,15 +5,12 @@ import BoardClient from "../../store/BoardClient";
 import TaskContext from "../../store/task-ctx";
 import "../Board/CSS-Folder/ListItem.css"
 import { Lexorank } from "../../index/Lexorank";
-
-
-let listTasks = [];
-console.log(listTasks);
+import ListContext from "../../store/list-ctx";
 
 const ListItem = ({refresh}) => {
 
     const ctx = useContext(TaskContext);
-    listTasks.push(ctx);
+    const listCtx = useContext(ListContext);
     const ref = useRef(null);
 
     let lexorank = new Lexorank(); 
@@ -29,39 +26,53 @@ const ListItem = ({refresh}) => {
                 return;
             }
 
-            console.log("Before hover with hovered item:" + ctx.name + " " + ctx.priority);
-
             const hoveredRect = ref.current.getBoundingClientRect();
             const hoverMiddleY = (hoveredRect.bottom - hoveredRect.top) / 2;
             const mousePosition = monitor.getClientOffset();
             const hoverClientY = mousePosition.y - hoveredRect.top;
 
             if (hoverClientY < hoverMiddleY) {
-                listTasks.map((task) => {
-                    if (ctx.indexTask+1 === task.indexTask) {
-                        let [rank,ok] = lexorank.insert(ctx.priority, task.priority);
+                if (listCtx.id === ctx.listId) {
+                    console.log(ctx);
+                    console.log(listCtx);
+                    listCtx.list.map((task, index) => {
+                    if (ctx.indexTask-1 === index && ctx.indexTask !== 0 ) {
+                        let [rank,ok] = lexorank.insert(task.priority.toString(), ctx.priority);
                         dragItem.priority = rank;
-                    }
-                })
-                /* let [rank, ok] = lexorank.insert(item1Rank, item2Rank) 
-                dragItem.priority = rank */
-                /* dragItem.priority = ctx.priority + 1 */
+                        console.log(dragItem.priority);
+                        console.log(ok);
+                    } else if(ctx.indexTask-1 === index && ctx.indexTask === 0) {
+                        let [rank,ok] = lexorank.insert('', ctx.priority);
+                        dragItem.priority = rank;
+                        console.log(dragItem.priority);
+                        console.log(ok);                       
+                    } 
+                    }) 
+                }
             }
     
             if (hoverClientY > hoverMiddleY ) {
-                listTasks.map((task) => {
-                    if (ctx.indexTask-1 === task.indexTask) {
-                        let [rank,ok] = lexorank.insert(task.priority, ctx.priority);
-                        dragItem.priority = rank;
-                    }
-                })
+                if (listCtx.id === ctx.listId) {
+                    console.log(ctx);
+                    console.log(listCtx);
+                    listCtx.list.map((task, index) => {
+                        if (ctx.indexTask+1 === index && ctx.indexTask !== listCtx.list.lenght-1) {
+                            let [rank,ok] = lexorank.insert(ctx.priority, task.priority.toString());
+                            dragItem.priority = rank;
+                            console.log(dragItem.priority);
+                            console.log(ok);
+                        } else if(ctx.indexTask+1 === index && ctx.indexTask === listCtx.list.length-1) {
+                            let [rank,ok] = lexorank.insert(ctx.priority, '');
+                            dragItem.priority = rank;
+                            console.log(dragItem.priority);
+                            console.log(ok);
+                        }
+                    })
+                }
                 /* let [rank, ok] = lexorank.insert(item1Rank, item2Rank)
                 dragItem.priority = rank */
                 /* dragItem.priority = ctx.priority - 1 */
             }
-
-            console.log("After hover with hovered item:" + ctx.name + " " + ctx.priority);
-            console.log("After hover with draged item:" + dragItem.name + " " + dragItem.priority)
             
             dragItem.listId = ctx.listId;
             BoardClient.updateListData(dragItem).then(() => {
@@ -92,14 +103,14 @@ const ListItem = ({refresh}) => {
 
     const onClose = () => setShow(false);
 
-    dragRef(dropRef(ref));
+    const dragdropRef = dragRef(dropRef(ref));
 
     return (
         <Fragment>
             <div 
                 className="list-item"
                 style={{opacity: isDragging || isOver ? "0" : "1"}} 
-                ref={ref}
+                ref={dragdropRef}
                 onClick={onOpen}
             >
                 {ctx.name.length>20 ? ctx.name.slice(0,20) + "..." : ctx.name}   
