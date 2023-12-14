@@ -31,7 +31,7 @@ const ListItem = ({refresh}) => {
             const mousePosition = monitor.getClientOffset();
             const hoverClientY = mousePosition.y - hoveredRect.top;
 
-            if (hoverClientY < hoverMiddleY) {
+            if (dragItem.indexTask > ctx.indexTask && hoverClientY < hoverMiddleY) { 
                 if (listCtx.id === ctx.listId) {
                     console.log(ctx);
                     console.log(listCtx);
@@ -41,7 +41,7 @@ const ListItem = ({refresh}) => {
                         dragItem.priority = rank;
                         console.log(dragItem.priority);
                         console.log(ok);
-                    } else if(ctx.indexTask-1 === index && ctx.indexTask === 0) {
+                    } else if(ctx.indexTask === 0) {
                         let [rank,ok] = lexorank.insert('', ctx.priority);
                         dragItem.priority = rank;
                         console.log(dragItem.priority);
@@ -51,7 +51,7 @@ const ListItem = ({refresh}) => {
                 }
             }
     
-            if (hoverClientY > hoverMiddleY ) {
+            if (dragItem.indexTask < ctx.indexTask && hoverClientY > hoverMiddleY ) {
                 if (listCtx.id === ctx.listId) {
                     console.log(ctx);
                     console.log(listCtx);
@@ -61,7 +61,7 @@ const ListItem = ({refresh}) => {
                             dragItem.priority = rank;
                             console.log(dragItem.priority);
                             console.log(ok);
-                        } else if(ctx.indexTask+1 === index && ctx.indexTask === listCtx.list.length-1) {
+                        } else if(ctx.indexTask === listCtx.list.length-1) {
                             let [rank,ok] = lexorank.insert(ctx.priority, '');
                             dragItem.priority = rank;
                             console.log(dragItem.priority);
