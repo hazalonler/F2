@@ -31,30 +31,26 @@ const ListItem = ({refresh}) => {
             const mousePosition = monitor.getClientOffset();
             const hoverClientY = mousePosition.y - hoveredRect.top;
 
-            if (dragItem.indexTask > ctx.indexTask && hoverClientY < hoverMiddleY) { 
+            
+
+            if (hoverClientY < hoverMiddleY) { 
                 if (listCtx.id === ctx.listId) {
-                    console.log(ctx);
-                    console.log(listCtx);
                     listCtx.list.map((task, index) => {
                     if (ctx.indexTask-1 === index && ctx.indexTask !== 0 ) {
                         let [rank,ok] = lexorank.insert(task.priority.toString(), ctx.priority);
                         dragItem.priority = rank;
                         console.log(dragItem.priority);
-                        console.log(ok);
                     } else if(ctx.indexTask === 0) {
                         let [rank,ok] = lexorank.insert('', ctx.priority);
                         dragItem.priority = rank;
-                        console.log(dragItem.priority);
-                        console.log(ok);                       
+                        console.log(dragItem.priority);        
                     } 
                     }) 
                 }
             }
     
-            if (dragItem.indexTask < ctx.indexTask && hoverClientY > hoverMiddleY ) {
+            if (hoverClientY > hoverMiddleY ) {
                 if (listCtx.id === ctx.listId) {
-                    console.log(ctx);
-                    console.log(listCtx);
                     listCtx.list.map((task, index) => {
                         if (ctx.indexTask+1 === index && ctx.indexTask !== listCtx.list.lenght-1) {
                             let [rank,ok] = lexorank.insert(ctx.priority, task.priority.toString());
@@ -69,10 +65,10 @@ const ListItem = ({refresh}) => {
                         }
                     })
                 }
-                /* let [rank, ok] = lexorank.insert(item1Rank, item2Rank)
-                dragItem.priority = rank */
-                /* dragItem.priority = ctx.priority - 1 */
             }
+
+            console.log("Drag Item:" + " " + dragItem.name + " " + "Drag Item Priority: " + " " + dragItem.priority);
+            console.log("Ctx Item:" + " " + ctx.name + " " + "Ctx Priority: " + " " + ctx.priority)
             
             dragItem.listId = ctx.listId;
             BoardClient.updateListData(dragItem).then(() => {

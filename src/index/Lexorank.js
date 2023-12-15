@@ -42,12 +42,9 @@ export class Lexorank {
             let midChar = this.mid(prevChar, nextChar);
             if (midChar === prevChar || midChar === nextChar) {
                 rank += this.string(prevChar);
-                console.log(rank);
                 i++;
                 continue;
             }
-
-            console.log(rank);
 
             rank += this.string(midChar);
             console.log(rank);
