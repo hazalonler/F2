@@ -3,36 +3,32 @@ const urlCommon = "http://localhost:8000/api"
 
 class BoardClient {
 
-    async getBoardConfig () {
-      const response = await fetch(`${urlCommon}/board`);
-
-      return await response.json();
+    getBoardConfig () {
+      return fetch(`${urlCommon}/board`)
+        .then((response) => response.json());
     }
 
-    async getTasksByListId (boardId, listId) {
-      const response = await fetch(`${urlCommon}/board/${boardId}/tasks/` + listId);
-
-      return await response.json();
+    getTasksByListId (boardId, listId) {
+      return fetch(`${urlCommon}/board/${boardId}/tasks/` + listId)
+        .then((response) => response.json());
     }
 
-    async createTasks (boardId, task) {
-      const response = await fetch(`${urlCommon}/board/${boardId}/tasks/` + task.listId, {
+    createTasks (boardId, task) {
+      return fetch(`${urlCommon}/board/${boardId}/tasks/` + task.listId, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(task)
-      });
-
-      return await response.json();
+      })
+        .then((response) => response.json());
     }
 
-    async updateListData (task) {
-      const response = await fetch(`${urlCommon}/tasks/` + task.id, {
+    updateListData (task) {
+      return fetch(`${urlCommon}/tasks/` + task.id, {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(task)
-      });
-      
-      return await response.json();
+      })
+        .then((response) => response.json());
     }
 };
 

@@ -16,14 +16,12 @@ const BoardList = ({ listId, name, style }) => {
     BoardClient.getTasksByListId(boardCtx.boardId, listId).then((data) => {
       setTasksOnBoard(data);
     });
-  }, []);
+  }, [boardCtx.boardId, listId]);
 
-  let priority = 0;
+  let priority = "A0";
 
   if (tasksOnBoard.length !== 0) {
-    priority = tasksOnBoard[tasksOnBoard.length - 1].priority + 1000;
-  } else {
-    priority = 1000;
+    priority = tasksOnBoard[tasksOnBoard.length - 1].priority + "0";
   }
 
   const addNewTaskHandler = (newTask) => {
@@ -49,8 +47,8 @@ const BoardList = ({ listId, name, style }) => {
     accept: "ITEM",
     canDrop: (dragItem, monitor) => {
       dragItem.listId = listId;
-      BoardClient.updateListData(dragItem).then(() => {
-        refresh();
+      BoardClient.updateListData(dragItem).then((data) => {
+        console.log(data);
       });
     },
 

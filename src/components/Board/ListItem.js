@@ -39,11 +39,9 @@ const ListItem = ({refresh}) => {
                     if (ctx.indexTask-1 === index && ctx.indexTask !== 0 ) {
                         let [rank,ok] = lexorank.insert(task.priority.toString(), ctx.priority);
                         dragItem.priority = rank;
-                        console.log(dragItem.priority);
                     } else if(ctx.indexTask === 0) {
                         let [rank,ok] = lexorank.insert('', ctx.priority);
-                        dragItem.priority = rank;
-                        console.log(dragItem.priority);        
+                        dragItem.priority = rank;    
                     } 
                     }) 
                 }
@@ -55,21 +53,15 @@ const ListItem = ({refresh}) => {
                         if (ctx.indexTask+1 === index && ctx.indexTask !== listCtx.list.lenght-1) {
                             let [rank,ok] = lexorank.insert(ctx.priority, task.priority.toString());
                             dragItem.priority = rank;
-                            console.log(dragItem.priority);
-                            console.log(ok);
                         } else if(ctx.indexTask === listCtx.list.length-1) {
                             let [rank,ok] = lexorank.insert(ctx.priority, '');
                             dragItem.priority = rank;
-                            console.log(dragItem.priority);
-                            console.log(ok);
                         }
                     })
                 }
             }
 
-            console.log("Drag Item:" + " " + dragItem.name + " " + "Drag Item Priority: " + " " + dragItem.priority);
-            console.log("Ctx Item:" + " " + ctx.name + " " + "Ctx Priority: " + " " + ctx.priority)
-            
+
             dragItem.listId = ctx.listId;
             BoardClient.updateListData(dragItem).then(() => {
                 refresh();
